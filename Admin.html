@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/AdminStyle.css">
+    <link rel="stylesheet" href="css/HomeStyle.css">
+    <title>Panel de Administración</title>
+</head>
+<body>
+    <header>
+        <a href="Home.html"><div class="logo"><img src="img/Logo PNG.png" alt=""></div></a>
+        <nav class="navbar">
+            <a href="Turno.html">Solicitud de Turno</a>
+            <a href="#Home">Acerca de</a>
+            <a href="#Home">Servicios</a>
+            <a href="#Home">Contacto</a>
+            <a href="Admin.html">Admin</a>
+        </nav>
+    </header>
+
+    <div id="admin-panel">
+        <h1>Panel de Administración de Turnos</h1>
+        
+        <div class="turnos-container">
+            <table class="status-table">
+                <thead>
+                    <tr>
+                        <th>Por atender</th>
+                        <th>En atención</th>
+                        <th>Atendidos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="porAtender">0</td>
+                        <td id="enAtencion">0</td>
+                        <td id="atendidos">0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <table id="turnos-table">
+            <thead>
+                <tr>
+                    <th>Especialidad</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>DNI</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="turnos-body"></tbody>
+        </table>
+    </div>
+
+    <script src="js/TurnoScript.js"></script>
+    <script src="js/statusScript.js"></script>
+    <script src="js/admin-script.js"></script>
+</body>
+</html>

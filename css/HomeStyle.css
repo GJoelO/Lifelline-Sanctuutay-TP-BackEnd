@@ -1,0 +1,340 @@
+:root{
+    --colorprinc:#effefe;
+    --colorsecun:#f8a803;
+    --colorterc:#f4ab01;
+    --colortext:#4A5764;
+    --colorfond:#65a2bc;
+}
+*{
+    margin:0; 
+    padding:0;
+    box-sizing: border-box;
+    outline: none; 
+    border:none;
+    text-decoration: none;
+    transition:all .2s linear;
+    font-family: "Inter", sans-serif;
+}
+html{
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+}
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 7%;
+    width: 100%;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+    z-index: 1000;
+    background-color: var(--colorfond);
+
+}
+.logo{
+    width: 75px;
+}
+.logo img{
+    width: 75%;
+}
+.navbar a{
+    color: var(--colortext);
+    font-size: 1.7rem;
+    margin: 1rem;
+    position: relative;
+    transition: 0.5s;
+}
+.navbar a:hover{
+    color: var(--colorprinc);
+}
+
+.navbar a::after{
+    content: "";
+    background-color: var(--colorprinc);
+    width: 0;
+    position: absolute;
+    height: 0.2rem;
+    left: 0;
+    margin-top: 0.5rem;
+    top: 100%;
+    transition: 0.5s;
+}
+.navbar a:hover::after{
+    width: 100%;
+}
+
+/*Termina el Nav*/
+
+/*Comienza la Pagina*/
+
+.main-home{
+    padding: 2rem 7%;
+    background-image: url(../img/fondo-2.jpg);
+    width: 100%;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.home{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 6rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.home .home-left-content{
+    flex: 1 1 40rem;
+    margin-top: 2rem;
+}
+
+.home-left-content span{
+    font-size: 2rem;
+    color: var(--colorfond);
+    padding: 1rem 0;
+    font-weight: bolder;
+    text-shadow: 
+        1px 1px 0 black,
+        -1px -1px 0 black,
+        1px -1px 0 black,
+        -1px 1px 0 black;
+}
+.home-left-content h2{
+    font-size: 48px;
+    margin: 1rem 0;
+    
+}
+.home-left-content p{
+    font-size: 1.7rem;
+    color: var(--colortext);
+    line-height: 3rem;
+    text-shadow: 
+        0.5px 0.5px 0 black,
+        -0.5px -0.5px 0 black,
+        0.5px -0.5px 0 black,
+        -0.5px 0.5px 0 black;
+}
+
+.home .home-right-content{
+    flex: 1 1 50rem;
+}
+
+.home .home-right-content img{
+    width: 100%;
+    margin-top: -10rem;
+}
+
+.turnos-container {
+    margin: 20px auto;
+    text-align: center; 
+    background-image: url(../img/backgroung-pattern-1.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.turnos-heading {
+    text-align: center;
+    font-size: 40px;
+    font-weight: bolder;
+    border-bottom: 2px solid var(--colorsecun);
+    width: 200px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+.status-table {
+    width: 100%;
+    max-width: 600px;
+    margin: 40px auto;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 10;
+}
+.status-table th, .status-table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+.status-table th {
+    background-color: var(--colorfond);
+    color: white;
+}
+.status-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+.technology{
+    padding: 3rem 7%;
+}
+
+.main-technology{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 3rem;
+    margin-top: 0px;
+}
+.inner-technology{
+    flex: 1 1 300px;
+    padding: 3rem 3rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background-image: url(../img/backgroung-pattern-1.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    background-color: white;
+    position: relative;
+    z-index: 1;
+}
+
+.inner-technology span{
+    width: 0;
+    height: 100%;
+    background-color: var(--colorfond);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: 0.5s;
+    
+}
+.inner-technology:hover span{
+    width: 100%;
+}
+.inner-technology:hover i{
+    
+    color: white;
+}
+.inner-technology:hover h2{
+    color: white;
+}
+.inner-technology:hover p{
+    color: white;
+}
+.inner-technology i{
+    font-size: 48px;
+    color: var(--colorfond);
+}
+
+.inner-technology h2{
+    font-size: 2.5rem;
+    padding: 1rem 0;
+}
+.inner-technology p{
+    font-size: 1.5rem;
+    line-height: 2.5rem;
+    padding: 1rem 0;
+}
+
+/*Termina la Pagina*/
+
+/*Breve Informe De Nosotros*/
+.main-about{
+    padding: 2rem 7%;
+    width: 100%;
+}
+.main-about .about-heading{
+
+    text-align: center;
+    font-size: 40px;
+    font-weight: bolder;
+    border-bottom: 2px solid var(--colorsecun);
+    width: 200px;
+    margin: 0 auto;
+    padding: 2rem 0;
+
+}
+.inner-main-about{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    
+}
+
+.about-inner-content-left{
+    flex: 1 1 40rem;
+}
+.about-inner-content-left img{
+    width: 90%;
+    padding: 2rem;
+}
+.about-inner-content{
+    flex: 1 1 45rem;
+}
+.about-inner-content img{
+    width: 100%;
+}
+.about-right-content h2{
+    font-size: 30px;
+    padding: 1.5rem 0;
+    color: black;
+    font-weight: bolder;
+    line-height: 4rem;
+}
+.about-right-content p{
+    font-size: 1.5rem;
+    padding: 1.5rem 0;
+    color: var(--colortext);
+    font-family: "Inter", sans-serif;
+    text-align: left;
+    line-height: 2.5rem;
+}
+.aboutsec-content{
+    line-height: 2.5rem ;
+}
+.aboutbtn{
+    padding: 1.5rem 3rem;
+    background-color: transparent;
+    border: 1px solid var(--colorsecun);
+    margin-top: 0.5rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: 0.5s all;
+}
+.aboutbtn:hover{
+    background-color: var(--colorsecun);
+    color: white;
+    border:none;
+    padding: 1.5rem 3.5rem;
+}
+
+/*Termine el Breve Nosotros*/
+
+/*Comineza el Footer*/
+
+.main-footer{
+    padding: 4rem 7%;
+    background-color: var(--colortext);
+    margin-top: 6rem;
+}
+.footer-inner{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.footer-content{
+    flex: 1 1 200px;
+    text-align: center;
+}
+.footer-content h1{
+    color: white;
+    font-size: 25px;
+}
+.link a{
+    display: block;
+    text-align: center;
+    color: white;
+    font-size: 1.5rem;
+    padding: 1rem;
+    margin: 0.5rem;
+}
