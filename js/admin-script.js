@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
         if (turnos.length === 0) {
             console.log('No hay turnos para mostrar');
-            turnosBody.innerHTML = '<tr><td colspan="8">No hay turnos registrados</td></tr>';
+            turnosBody.innerHTML = '<tr><td colspan="9">No hay turnos registrados</td></tr>';
             actualizarTablaEstado([]);
             return;
         }
@@ -59,10 +59,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     </select>
                 </td>
                 <td>
+                    <button class="tachar-btn" data-index="${index}">Tachar</button>
                     <button class="editar-btn" data-index="${index}">Editar</button>
                     <button class="eliminar-btn" data-index="${index}">Eliminar</button>
                 </td>
             `;
+
+            if (turno.tachado) {
+                row.classList.add('tachado');
+            }
         });
     
         console.log('Turnos cargados en la tabla');
@@ -72,6 +77,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Agregar event listeners para los botones y selects
         document.querySelectorAll('.estado-select').forEach(select => {
             select.addEventListener('change', cambiarEstado);
+        });
+
+        document.querySelectorAll('.tachar-btn').forEach(btn => {
+            btn.addEventListener('click', tacharTurno);
         });
     
         document.querySelectorAll('.editar-btn').forEach(btn => {
@@ -90,6 +99,14 @@ document.addEventListener('DOMContentLoaded', function() {
         turnos[index].estado = nuevoEstado;
         localStorage.setItem('turnos', JSON.stringify(turnos));
         console.log('Estado cambiado:', index, nuevoEstado);
+        cargarTurnos();
+    }
+
+    function tacharTurno(e) {
+        const index = e.target.dataset.index;
+        const turnos = JSON.parse(localStorage.getItem('turnos'));
+        turnos[index].tachado = !turnos[index].tachado;
+        localStorage.setItem('turnos', JSON.stringify(turnos));
         cargarTurnos();
     }
     
