@@ -25,7 +25,7 @@ const usuariosRouter = require('./js/node/routers/usuarios.router');
 app.use('/usuarios', usuariosRouter);
 
 // Router de Autentificacion
-app.use("/auth", require("./routers/auth.router"));
+app.use("/auth", require("./js/node/routers/auth.router"));
 
 app.get("/", (req, res) => {
     res.send("Hola Hospital");
