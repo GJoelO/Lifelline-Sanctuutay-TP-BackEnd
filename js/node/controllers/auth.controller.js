@@ -24,7 +24,7 @@ const register = (req, res) => {
             }
 
             // Insertar nuevo usuario en la base de datos
-            db.query('INSERT INTO usuarios (nombre_usuario, apellido_usuario, email, telefono_usuario, contraseña_usuario) VALUES (?, ?, ?, ?)', [nombre_usuario, email, telefono_usuario, hash], (insertError, insertResults) => {
+            db.query('INSERT INTO usuarios (nombre_usuario, email, telefono_usuario, contraseña_usuario) VALUES (?, ?, ?, ?)', [nombre_usuario, email, telefono_usuario, hash], (insertError, insertResults) => {
                 if (insertError) {
                     console.error("Error al insertar usuario:", insertError);
                     return res.status(500).send("Error al registrar usuario");
