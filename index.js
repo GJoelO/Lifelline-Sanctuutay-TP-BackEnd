@@ -27,6 +27,25 @@ app.use('/usuarios', usuariosRouter);
 // Router de Autentificacion
 app.use("/auth", require("./js/node/routers/auth.router"));
 
+// Nuevos routers
+const pacientesRouter = require('./js/node/routers/pacientes.router');
+app.use('/pacientes', pacientesRouter);
+
+const citasRouter = require('./js/node/routers/citas.router');
+app.use('/citas', citasRouter);
+
+const departamentosRouter = require('./js/node/routers/departamentos.router');
+app.use('/departamentos', departamentosRouter);
+
+const medicamentosRouter = require('./js/node/routers/medicamentos.router');
+app.use('/medicamentos', medicamentosRouter);
+
+const historialesMedicosRouter = require('./js/node/routers/historiales_medicos.router');
+app.use('/historiales-medicos', historialesMedicosRouter);
+
+const habitacionesRouter = require('./js/node/routers/habitaciones.router');
+app.use('/habitaciones', habitacionesRouter);
+
 app.get("/", (req, res) => {
     res.send("Hola Hospital");
 });
