@@ -1,4 +1,19 @@
 const db = require("../db/db");
+const multer = require('multer');
+const path = require('path');
+const bcrypt = require('bcryptjs');
+
+// Configuración de multer para el almacenamiento de archivos
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/') // Asegúrate de que este directorio exista
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + path.extname(file.originalname))
+    }
+});
+
+const upload = multer({ storage: storage });
 
 //// METODO GET  /////
 
@@ -30,22 +45,51 @@ const showUser = (req, res) => {
 
 //// METODO PUT  ////
 const updateUser = (req, res) => {
-    const {id_usuario} = req.params;
-    const {nombre_usuario, email, telefono_usuario, contraseña_usuario} = req.body;
-    const sql ="UPDATE usuarios SET nombre_usuario = ?, email = ?, telefono_usuario = ?, contraseña_usuario = ? WHERE id_usuario = ?";
-    db.query(sql,[nombre_usuario, email, telefono_usuario, contraseña_usuario, id_usuario], (error, result) => {
-        console.log(result);
-        if(error){
-            return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
+    upload.single('foto_perfil')(req, res, function (err) {
+        if (err instanceof multer.MulterError) {
+            return res.status(500).json({error : "ERROR: Problema al subir el archivo"});
+        } else if (err) {
+            return res.status(500).json({error : "ERROR: " + err.message});
         }
-        if(result.affectedRows == 0){
-            return res.status(404).send({error : "ERROR: El usuario a modificar no existe"});
-        };
-        
-        const login = {...req.body, ...req.params}; // ... reconstruir el objeto del body
 
-        res.json(login); // mostrar el elemento que existe
-    });     
+        const {id_usuario} = req.params;
+        const {nombre_usuario, email, telefono_usuario, contraseña_usuario} = req.body;
+        const foto_perfil = req.file ? req.file.filename : null;
+
+        let sql, params;
+
+        if (contraseña_usuario) {
+            bcrypt.hash(contraseña_usuario, 8, (err, hash) => {
+                if (err) {
+                    return res.status(500).json({error : "ERROR: Problema al hashear la contraseña"});
+                }
+                
+                sql = "UPDATE usuarios SET nombre_usuario = ?, email = ?, telefono_usuario = ?, contraseña_usuario = ?, foto_perfil = ? WHERE id_usuario = ?";
+                params = [nombre_usuario, email, telefono_usuario, hash, foto_perfil, id_usuario];
+                
+                executeUpdate(sql, params);
+            });
+        } else {
+            sql = "UPDATE usuarios SET nombre_usuario = ?, email = ?, telefono_usuario = ?, foto_perfil = ? WHERE id_usuario = ?";
+            params = [nombre_usuario, email, telefono_usuario, foto_perfil, id_usuario];
+            
+            executeUpdate(sql, params);
+        }
+
+        function executeUpdate(sql, params) {
+            db.query(sql, params, (error, result) => {
+                if(error){
+                    return res.status(500).json({error : "ERROR: Intente más tarde por favor"});
+                }
+                if(result.affectedRows == 0){
+                    return res.status(404).send({error : "ERROR: El usuario a modificar no existe"});
+                };
+                
+                const updatedUser = {id_usuario, nombre_usuario, email, telefono_usuario, foto_perfil};
+                res.json(updatedUser);
+            });
+        }
+    });
 };
 
 
