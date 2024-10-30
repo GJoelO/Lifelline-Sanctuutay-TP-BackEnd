@@ -27,22 +27,27 @@ app.use('/usuarios', usuariosRouter);
 // Router de Autentificacion
 app.use("/auth", require("./js/node/routers/auth.router"));
 
-// Nuevos routers
+// Router de Pacientes
 const pacientesRouter = require('./js/node/routers/pacientes.router');
 app.use('/pacientes', pacientesRouter);
 
+// Router de Citas
 const citasRouter = require('./js/node/routers/citas.router');
 app.use('/citas', citasRouter);
 
+// Router de Departamentos
 const departamentosRouter = require('./js/node/routers/departamentos.router');
 app.use('/departamentos', departamentosRouter);
 
+// Router de Medicamentos
 const medicamentosRouter = require('./js/node/routers/medicamentos.router');
 app.use('/medicamentos', medicamentosRouter);
 
+// Router de Historiales Medicos
 const historialesMedicosRouter = require('./js/node/routers/historiales_medicos.router');
 app.use('/historiales-medicos', historialesMedicosRouter);
 
+// Router de Habitaciones
 const habitacionesRouter = require('./js/node/routers/habitaciones.router');
 app.use('/habitaciones', habitacionesRouter);
 
