@@ -44,6 +44,7 @@ const showUser = (req, res) => {
 };
 
 //// METODO PUT  ////
+//// SUBIDA DE ARCHIVO ////
 const updateUser = (req, res) => {
     upload.single('foto_perfil')(req, res, function (err) {
         if (err instanceof multer.MulterError) {
@@ -51,13 +52,16 @@ const updateUser = (req, res) => {
         } else if (err) {
             return res.status(500).json({error : "ERROR: " + err.message});
         }
+        
+        //// ACTUALIZA LA INFORMACION DEL USUARIO ////
+        
+        const {id_usuario} = req.params; // Extrae el ID
+        const {nombre_usuario, email, telefono_usuario, contraseña_usuario} = req.body; // Extrae varios campo del cuerpo de la solicitud
+        const foto_perfil = req.file ? req.file.filename : null; // Verifica si se subio un archivo y sino es NULL
 
-        const {id_usuario} = req.params;
-        const {nombre_usuario, email, telefono_usuario, contraseña_usuario} = req.body;
-        const foto_perfil = req.file ? req.file.filename : null;
+        let sql, params; // Declaracion de variable 
 
-        let sql, params;
-
+        // MODIFICA LA CONTRASENA
         if (contraseña_usuario) {
             bcrypt.hash(contraseña_usuario, 8, (err, hash) => {
                 if (err) {
@@ -75,7 +79,8 @@ const updateUser = (req, res) => {
             
             executeUpdate(sql, params);
         }
-
+        
+        // Ejecuta consulta SQL para actualizar la informacion del usuario
         function executeUpdate(sql, params) {
             db.query(sql, params, (error, result) => {
                 if(error){
