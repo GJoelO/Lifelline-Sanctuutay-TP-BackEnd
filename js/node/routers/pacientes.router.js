@@ -7,19 +7,19 @@ const controller = require("../controllers/pacientes.controller");
 //// METODO GET  /////
 
 // Para todos los pacientes
-router.get('/', controller.todosLosPacientes);
+router.get('/', controller.allPatients);
 
 // Para un paciente
-router.get('/:id_paciente', controller.mostrarPaciente);
+router.get('/:id_paciente', controller.showPatient);
 
 //// METODO POST  ////
-router.post('/', controller.guardarPaciente);
+router.post('/', controller.storePatient);
 
 //// METODO PUT  ////
-router.put('/:id_paciente', controller.actualizarPaciente);
+router.put('/:id_paciente', controller.updatePatient);
 
 //// METODO DELETE ////
-router.delete('/:id_paciente', controller.eliminarPaciente);
+router.delete('/:id_paciente', controller.destroyPatient);
 
 // EXPORTAR ROUTERS
 module.exports = router;

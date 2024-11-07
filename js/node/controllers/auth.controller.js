@@ -1,4 +1,4 @@
-const jwt = require("jsonwebtoken");
+/*const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const db = require("../db/db");
 const multer = require('multer');
@@ -31,7 +31,7 @@ const register = (req, res) => {
         db.query('SELECT * FROM usuarios WHERE email = ?', [email], (error, results) => {
             if (error) {
                 console.error("Error al Registrarse:", error);
-                return res.status(500).send("Error checking usuario existente");
+                return res.status(500).send("Error usuario existente");
             }
 
             if (results.length > 0) {
@@ -55,10 +55,10 @@ const register = (req, res) => {
                         }
 
                         // Obtener el ID del usuario recién creado
-                        const userId = insertResults.insertId;
+                        const id_usuario = insertResults.insertId;
 
                         // Generar un token JWT con el ID del usuario
-                        const token = jwt.sign({ id: userId }, process.env.SECRET_KEY, {
+                        const token = jwt.sign({ id: id_usuario }, process.env.SECRET_KEY, {
                             expiresIn: "1h",
                         });
 
@@ -114,4 +114,4 @@ const login = (req, res) => {
 module.exports = {
     register,
     login,
-};
+};*/

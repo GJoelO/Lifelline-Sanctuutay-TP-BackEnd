@@ -7,19 +7,19 @@ const controller = require("../controllers/departamentos.controller");
 //// METODO GET  /////
 
 // Para todos los departamentos
-router.get('/', controller.todosDepartamentos);
+router.get('/', controller.allDepartments);
 
 // Para un departamento
-router.get('/:id_departamento', controller.mostrarDepartamento);
+router.get('/:id_departamento', controller.showDepartment);
 
 //// METODO POST  ////
-router.post('/', controller.guardarDepartamento);
+router.post('/', controller.storeDepartment);
 
 //// METODO PUT  ////
-router.put('/:id_departamento', controller.actualizarDepartamento);
+router.put('/:id_departamento', controller.updateDepartment);
 
 //// METODO DELETE ////
-router.delete('/:id_departamento', controller.eliminarDepartamento);
+router.delete('/:id_departamento', controller.destroyDepartment);
 
 // EXPORTAR ROUTERS
 module.exports = router;

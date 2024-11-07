@@ -24,8 +24,8 @@ app.use('/medicos', medicosRouter);
 const usuariosRouter = require('./js/node/routers/usuarios.router');
 app.use('/usuarios', usuariosRouter);
 
-// Router de Autentificacion
-app.use("/auth", require("./js/node/routers/auth.router"));
+/*// Router de Autentificacion
+app.use("/auth", require("./js/node/routers/auth.router"));*/
 
 // Router de Pacientes
 const pacientesRouter = require('./js/node/routers/pacientes.router');

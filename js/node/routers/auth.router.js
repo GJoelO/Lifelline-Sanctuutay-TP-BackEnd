@@ -1,4 +1,4 @@
-/// RUTAS DEL MODULO ///
+/*/// RUTAS DEL MODULO ///
 const express = require("express");
 const router = express.Router();
 
@@ -18,3 +18,4 @@ router.get("/protected", authMiddleware, (req, res) => {
 // EXPORTAR ROUTERS
 module.exports = router;
 
+*/

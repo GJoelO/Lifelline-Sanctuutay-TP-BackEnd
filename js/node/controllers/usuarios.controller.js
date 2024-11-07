@@ -1,19 +1,6 @@
 const db = require("../db/db");
-const multer = require('multer');
-const path = require('path');
-const bcrypt = require('bcryptjs');
-
-// Configuración de multer para el almacenamiento de archivos
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/') // Asegúrate de que este directorio exista
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname))
-    }
-});
-
-const upload = multer({ storage: storage });
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 //// METODO GET  /////
 
@@ -43,57 +30,51 @@ const showUser = (req, res) => {
     }); 
 };
 
+//// METODO POST  ////
+const storeUser = (req, res)  => {
+    let imagenAsubir = "";
+    if (req.file){
+        imagenAsubir = req.file.filename;
+    }
+    const {nombre_usuario, email, telefono_usuario, contraseña_usuario} = req.params;
+    if (!nombre_usuario || !email || !telefono_usuario || !contraseña_usuario){
+        return res.status(400).send('Falta Completar Campos');
+    }
+
+    // Encriptacion de Contraseña BCRYPT
+    bcrypt.hash(contraseña_usuario, 10, (err, hashedPassword) => {
+        if (err) {
+            return res.status(500).send("Error hashing contraseña");
+    }
+
+        const sql = "INSERT INTO usuarios (nombre_usuario, email, telefono_usuario, contraseña_usuario, foto_perfil) VALUES (?, ?, ?, ?, ?)";
+        db.query(sql,[nombre_usuario, email, telefono_usuario, hashedPassword, foto_perfil], (error, result) => {
+            console.log(result);
+            if(error){
+                return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
+            }
+            const usuario = {...req.body, id: result.insertId}; // ... reconstruir el objeto del body
+            res.status(201).json(usuario); // muestra creado con exito el elemento
+        });  
+})};
+
 //// METODO PUT  ////
-//// SUBIDA DE ARCHIVO ////
 const updateUser = (req, res) => {
-    upload.single('foto_perfil')(req, res, function (err) {
-        if (err instanceof multer.MulterError) {
-            return res.status(500).json({error : "ERROR: Problema al subir el archivo"});
-        } else if (err) {
-            return res.status(500).json({error : "ERROR: " + err.message});
+    const {id_usuario} = req.params;
+    const {nombre_usuario, email, telefono_usuario, contraseña_usuario, foto_perfil} = req.body;
+    const sql ="UPDATE usuarios SET nombre_usuario = ?, email = ?, telefono_usuario = ?, contraseña_usuario = ?, foto_perfil = ? WHERE id_usuario = ?";
+    db.query(sql,[nombre_usuario, email, telefono_usuario, contraseña_usuario, foto_perfil, id_usuario], (error, result) => {
+        console.log(result);
+        if(error){
+            return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
         }
+        if(result.affectedRows == 0){
+            return res.status(404).send({error : "ERROR: El/la medico/a al modificar no existe"});
+        };
         
-        //// ACTUALIZA LA INFORMACION DEL USUARIO ////
-        
-        const {id_usuario} = req.params; // Extrae el ID
-        const {nombre_usuario, email, telefono_usuario, contraseña_usuario} = req.body; // Extrae varios campo del cuerpo de la solicitud
-        const foto_perfil = req.file ? req.file.filename : null; // Verifica si se subio un archivo y sino es NULL
+        const usuario = {...req.body, ...req.params}; // ... reconstruir el objeto del body
 
-        let sql, params; // Declaracion de variable 
-
-        // MODIFICA LA CONTRASENA
-        if (contraseña_usuario) {
-            bcrypt.hash(contraseña_usuario, 8, (err, hash) => {
-                if (err) {
-                    return res.status(500).json({error : "ERROR: Problema al hashear la contraseña"});
-                }
-                
-                sql = "UPDATE usuarios SET nombre_usuario = ?, email = ?, telefono_usuario = ?, contraseña_usuario = ?, foto_perfil = ? WHERE id_usuario = ?";
-                params = [nombre_usuario, email, telefono_usuario, hash, foto_perfil, id_usuario];
-                
-                executeUpdate(sql, params);
-            });
-        } else {
-            sql = "UPDATE usuarios SET nombre_usuario = ?, email = ?, telefono_usuario = ?, foto_perfil = ? WHERE id_usuario = ?";
-            params = [nombre_usuario, email, telefono_usuario, foto_perfil, id_usuario];
-            
-            executeUpdate(sql, params);
-        }
-        
-        // Ejecuta consulta SQL para actualizar la informacion del usuario
-        function executeUpdate(sql, params) {
-            db.query(sql, params, (error, result) => {
-                if(error){
-                    return res.status(500).json({error : "ERROR: Intente más tarde por favor"});
-                }
-                if(result.affectedRows == 0){
-                    return res.status(404).send({error : "ERROR: El usuario a modificar no existe"});
-                };
-                
-                const updatedUser = {id_usuario, nombre_usuario, email, telefono_usuario, foto_perfil};
-                res.json(updatedUser);
-            });
-        }
+        res.json(usuario); // mostrar el elmento que existe
     });
 };
 
@@ -121,6 +102,7 @@ const destroyUser = (req, res) => {
 module.exports = {
     allUsers,
     showUser,
+    storeUser,
     updateUser,
     destroyUser
 };

@@ -7,19 +7,19 @@ const controller = require("../controllers/citas.controller");
 //// METODO GET  /////
 
 // Para todas las citas
-router.get('/', controller.todasLasCitas);
+router.get('/', controller.allAppointments);
 
 // Para una cita
-router.get('/:id_cita', controller.mostrarCita);
+router.get('/:id_cita', controller.showAppointment);
 
 //// METODO POST  ////
-router.post('/', controller.guardarCita);
+router.post('/', controller.storeAppointment);
 
 //// METODO PUT  ////
-router.put('/:id_cita', controller.actualizarCita);
+router.put('/:id_cita', controller.updateAppointment);
 
 //// METODO DELETE ////
-router.delete('/:id_cita', controller.eliminarCita);
+router.delete('/:id_cita', controller.destroyAppointment);
 
 // EXPORTAR ROUTERS
 module.exports = router;

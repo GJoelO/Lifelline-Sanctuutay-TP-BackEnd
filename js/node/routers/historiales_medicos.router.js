@@ -7,19 +7,19 @@ const controller = require("../controllers/historiales_medicos.controller");
 //// METODO GET  /////
 
 // Para todos los historiales médicos
-router.get('/', controller.todosHistorialesMedicos);
+router.get('/', controller.allMedicalRecords);
 
 // Para un historial médico
-router.get('/:id_historial', controller.mostrarHistorialMedico);
+router.get('/:id_historial', controller.showMedicalRecord);
 
 //// METODO POST  ////
-router.post('/', controller.guardarHistorialMedico);
+router.post('/', controller.storeMedicalRecord);
 
 //// METODO PUT  ////
-router.put('/:id_historial', controller.actualizarHistorialMedico);
+router.put('/:id_historial', controller.updateMedicalRecord);
 
 //// METODO DELETE ////
-router.delete('/:id_historial', controller.eliminarHistorialMedico);
+router.delete('/:id_historial', controller.destroyMedicalRecord);
 
 // EXPORTAR ROUTERS
 module.exports = router;

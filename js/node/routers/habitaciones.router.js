@@ -7,19 +7,19 @@ const controller = require("../controllers/habitaciones.controller");
 //// METODO GET  /////
 
 // Para todas las habitaciones
-router.get('/', controller.todasHabitaciones);
+router.get('/', controller.allRooms);
 
 // Para una habitación
-router.get('/:id_habitacion', controller.mostrarHabitacion);
+router.get('/:id_habitacion', controller.showRoom);
 
 //// METODO POST  ////
-router.post('/', controller.guardarHabitacion);
+router.post('/', controller.storeRoom);
 
 //// METODO PUT  ////
-router.put('/:id_habitacion', controller.actualizarHabitacion);
+router.put('/:id_habitacion', controller.updateRoom);
 
 //// METODO DELETE ////
-router.delete('/:id_habitacion', controller.eliminarHabitacion);
+router.delete('/:id_habitacion', controller.destroyRoom);
 
 // EXPORTAR ROUTERS
 module.exports = router;

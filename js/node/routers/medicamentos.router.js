@@ -7,19 +7,19 @@ const controller = require("../controllers/medicamentos.controller");
 //// METODO GET  /////
 
 // Para todos los medicamentos
-router.get('/', controller.todosMedicamentos);
+router.get('/', controller.allMedications);
 
 // Para un medicamento
-router.get('/:id_medicamento', controller.mostrarMedicamento);
+router.get('/:id_medicamento', controller.showMedication);
 
 //// METODO POST  ////
-router.post('/', controller.guardarMedicamento);
+router.post('/', controller.storeMedication);
 
 //// METODO PUT  ////
-router.put('/:id_medicamento', controller.actualizarMedicamento);
+router.put('/:id_medicamento', controller.updateMedication);
 
 //// METODO DELETE ////
-router.delete('/:id_medicamento', controller.eliminarMedicamento);
+router.delete('/:id_medicamento', controller.destroyMedication);
 
 // EXPORTAR ROUTERS
 module.exports = router;
