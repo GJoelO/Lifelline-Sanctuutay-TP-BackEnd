@@ -25,9 +25,15 @@ const showDepartment = (req, res) => {
 };
 
 const storeDepartment = (req, res) => {
-    const {nombre, descripcion, jefe_departamento} = req.body;
-    const sql = "INSERT INTO departamentos (nombre, descripcion, jefe_departamento) VALUES (?,?,?)";
-    db.query(sql,[nombre, descripcion, jefe_departamento], (error, result) => {
+    const {nombre, descripcion} = req.body;
+
+    console.log(req.body);
+
+    const sql = "INSERT INTO departamentos (nombre, descripcion) VALUES (?,?)";
+    db.query(sql,[nombre, descripcion], (error, result) => {
+
+        console.log(error);
+
         if(error){
             return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
         }
@@ -38,9 +44,9 @@ const storeDepartment = (req, res) => {
 
 const updateDepartment = (req, res) => {
     const {id_departamento} = req.params;
-    const {nombre, descripcion, jefe_departamento} = req.body;
-    const sql ="UPDATE departamentos SET nombre = ?, descripcion = ?, jefe_departamento = ? WHERE id_departamento = ?";
-    db.query(sql,[nombre, descripcion, jefe_departamento, id_departamento], (error, result) => {
+    const {nombre, descripcion} = req.body;
+    const sql ="UPDATE departamentos SET nombre = ?, descripcion = ?  WHERE id_departamento = ?";
+    db.query(sql,[nombre, descripcion, id_departamento], (error, result) => {
         if(error){
             return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
         }

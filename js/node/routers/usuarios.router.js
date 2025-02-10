@@ -43,7 +43,7 @@ router.get('/:id_usuario', controller.showUser);
 router.post('/', uploads.single('foto_perfil'), controller.storeUser);
 
 //// METODO PUT  ////
-router.put('/:id_usuario', controller.updateUser);
+router.put('/:id_usuario', uploads.single('foto_perfil'), controller.updateUser);
 
 //// METODO DELETE ////
 router.delete('/:id_usuario', controller.destroyUser);

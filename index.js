@@ -45,7 +45,7 @@ app.use('/medicamentos', medicamentosRouter);
 
 // Router de Historiales Medicos
 const historialesMedicosRouter = require('./js/node/routers/historiales_medicos.router');
-app.use('/historiales-medicos', historialesMedicosRouter);
+app.use('/historialesmedicos', historialesMedicosRouter);
 
 // Router de Habitaciones
 const habitacionesRouter = require('./js/node/routers/habitaciones.router');

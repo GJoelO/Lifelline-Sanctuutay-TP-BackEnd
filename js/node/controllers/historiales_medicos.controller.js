@@ -1,7 +1,7 @@
 const db = require("../db/db");
 
 const allMedicalRecords = (req, res) => {
-    const sql = "SELECT * FROM historiales_medicos";
+    const sql = "SELECT * FROM historialesmedicos";
     db.query(sql, (error, rows) => {
         if(error){
             return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
@@ -12,7 +12,7 @@ const allMedicalRecords = (req, res) => {
 
 const showMedicalRecord = (req, res) => {
     const {id_historial} = req.params;
-    const sql = "SELECT * FROM historiales_medicos WHERE id_historial = ?";
+    const sql = "SELECT * FROM historialesmedicos WHERE id_historial = ?";
     db.query(sql,[id_historial], (error, rows) => {
         
         if(error){
@@ -27,7 +27,7 @@ const showMedicalRecord = (req, res) => {
 
 const storeMedicalRecord = (req, res) => {
     const {fk_paciente, diagnostico, tratamiento, notas_adicionales} = req.body;
-    const sql = "INSERT INTO historiales_medicos (fk_paciente, diagnostico, tratamiento, notas_adicionales) VALUES (?,?,?,?)";
+    const sql = "INSERT INTO historialesmedicos (fk_paciente, diagnostico, tratamiento, notas_adicionales) VALUES (?,?,?,?)";
     db.query(sql,[fk_paciente, diagnostico, tratamiento, notas_adicionales], (error, result) => {
         if(error){
             return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
@@ -40,7 +40,7 @@ const storeMedicalRecord = (req, res) => {
 const updateMedicalRecord = (req, res) => {
     const {id_historial} = req.params;
     const {fk_paciente, diagnostico, tratamiento, notas_adicionales} = req.body;
-    const sql ="UPDATE historiales_medicos SET fk_paciente = ?, diagnostico = ?, tratamiento = ?, notas_adicionales = ? WHERE id_historial = ?";
+    const sql ="UPDATE historialesmedicos SET fk_paciente = ?, diagnostico = ?, tratamiento = ?, notas_adicionales = ? WHERE id_historial = ?";
     db.query(sql,[fk_paciente, diagnostico, tratamiento, notas_adicionales, id_historial], (error, result) => {
         if(error){
             return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
@@ -55,7 +55,7 @@ const updateMedicalRecord = (req, res) => {
 
 const destroyMedicalRecord = (req, res) => {
     const {id_historial} = req.params;
-    const sql = "DELETE FROM historiales_medicos WHERE id_historial = ?";
+    const sql = "DELETE FROM historialesmedicos WHERE id_historial = ?";
     db.query(sql,[id_historial], (error, result) => {
         if(error){
             return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});

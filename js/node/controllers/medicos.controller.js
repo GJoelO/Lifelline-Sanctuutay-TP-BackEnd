@@ -2,7 +2,7 @@
 
 // Campos de la tabla medicos
 // id_medico
-// fk_profesion
+// fk_especialidad
 // apellido
 // nombre
 // edad
@@ -44,9 +44,9 @@ const showMedic = (req, res) => {
 
 //// METODO POST  ////
 const storeMedic = (req, res) => {
-    const {fk_profesion, apellido, nombre, edad, email, telefono, años_ejerciendo} = req.body;
-    const sql = "INSERT INTO medicos (fk_profesion, apellido, nombre, edad, email, telefono, años_ejerciendo) VALUES (?,?,?,?,?,?,?)";
-    db.query(sql,[fk_profesion, apellido, nombre, edad, email, telefono, años_ejerciendo], (error, result) => {
+    const {fk_especialidad, apellido, nombre, edad, email, telefono, años_ejerciendo} = req.body;
+    const sql = "INSERT INTO medicos (fk_especialidad, apellido, nombre, edad, email, telefono, años_ejerciendo) VALUES (?,?,?,?,?,?,?)";
+    db.query(sql,[fk_especialidad, apellido, nombre, edad, email, telefono, años_ejerciendo], (error, result) => {
         console.log(result);
         if(error){
             return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
@@ -60,9 +60,9 @@ const storeMedic = (req, res) => {
 //// METODO PUT  ////
 const updateMedic = (req, res) => {
     const {id_medico} = req.params;
-    const {fk_profesion, apellido, nombre, edad, email, telefono, años_ejerciendo} = req.body;
-    const sql ="UPDATE medicos SET fk_profesion = ?, apellido = ?, nombre = ?, edad = ?, email = ?, telefono = ?, años_ejerciendo = ? WHERE id_medico = ?";
-    db.query(sql,[fk_profesion, apellido, nombre, edad, email, telefono, años_ejerciendo, id_medico], (error, result) => {
+    const {fk_especialidad, apellido, nombre, edad, email, telefono, años_ejerciendo} = req.body;
+    const sql ="UPDATE medicos SET fk_especialidad = ?, apellido = ?, nombre = ?, edad = ?, email = ?, telefono = ?, años_ejerciendo = ? WHERE id_medico = ?";
+    db.query(sql,[fk_especialidad, apellido, nombre, edad, email, telefono, años_ejerciendo, id_medico], (error, result) => {
         console.log(result);
         if(error){
             return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});

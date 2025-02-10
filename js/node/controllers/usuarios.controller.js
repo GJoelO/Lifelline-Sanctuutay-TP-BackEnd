@@ -36,19 +36,19 @@ const storeUser = (req, res)  => {
     if (req.file){
         imagenAsubir = req.file.filename;
     }
-    const {nombre_usuario, email, telefono_usuario, contraseña_usuario} = req.params;
-    if (!nombre_usuario || !email || !telefono_usuario || !contraseña_usuario){
+    const {nombre_usuario, email, telefono_usuario, contrasenia_usuario} = req.body;
+    if (!nombre_usuario || !email || !telefono_usuario || !contrasenia_usuario){
         return res.status(400).send('Falta Completar Campos');
     }
 
     // Encriptacion de Contraseña BCRYPT
-    bcrypt.hash(contraseña_usuario, 10, (err, hashedPassword) => {
+    bcrypt.hash(contrasenia_usuario, 10, (err, hashedPassword) => {
         if (err) {
             return res.status(500).send("Error hashing contraseña");
     }
 
-        const sql = "INSERT INTO usuarios (nombre_usuario, email, telefono_usuario, contraseña_usuario, foto_perfil) VALUES (?, ?, ?, ?, ?)";
-        db.query(sql,[nombre_usuario, email, telefono_usuario, hashedPassword, foto_perfil], (error, result) => {
+        const sql = "INSERT INTO usuarios (nombre_usuario, email, telefono_usuario, contrasenia_usuario, foto_perfil) VALUES (?, ?, ?, ?, ?)";
+        db.query(sql,[nombre_usuario, email, telefono_usuario, hashedPassword, imagenAsubir], (error, result) => {
             console.log(result);
             if(error){
                 return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
@@ -58,24 +58,40 @@ const storeUser = (req, res)  => {
         });  
 })};
 
+
 //// METODO PUT  ////
 const updateUser = (req, res) => {
-    const {id_usuario} = req.params;
-    const {nombre_usuario, email, telefono_usuario, contraseña_usuario, foto_perfil} = req.body;
-    const sql ="UPDATE usuarios SET nombre_usuario = ?, email = ?, telefono_usuario = ?, contraseña_usuario = ?, foto_perfil = ? WHERE id_usuario = ?";
-    db.query(sql,[nombre_usuario, email, telefono_usuario, contraseña_usuario, foto_perfil, id_usuario], (error, result) => {
-        console.log(result);
-        if(error){
-            return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
-        }
-        if(result.affectedRows == 0){
-            return res.status(404).send({error : "ERROR: El/la medico/a al modificar no existe"});
-        };
-        
-        const usuario = {...req.body, ...req.params}; // ... reconstruir el objeto del body
+    let imagenAsubir = "";
+    if (req.file){
+        imagenAsubir = req.file.filename;
+    }
+    const {nombre_usuario, email, telefono_usuario, contrasenia_usuario} = req.body;
+    console.log(req.body);
+    console.log(imagenAsubir);
 
-        res.json(usuario); // mostrar el elmento que existe
-    });
+    if(!nombre_usuario || !email || !telefono_usuario || !contrasenia_usuario){
+        return res.status(400).send("Todos los campos son obligatorios"); //chequear 400
+    }
+    //encriptación BCRYPT
+    bcrypt.hash(contrasenia_usuario,10,(err,hashedPassword)=>{
+        if (err){
+            return res.status(500).send("Error de encriptación")
+        }  
+        const {id_usuario} = req.params;
+        const {nombre_usuario, email, telefono_usuario} = req.body;
+        const sql = "UPDATE usuarios SET nombre_usuario=?, email=?, telefono_usuario=?, contrasenia_usuario=?, foto_perfil=? WHERE id_usuario = ?";
+        db.query(sql, [nombre_usuario, email, telefono_usuario, hashedPassword, imagenAsubir, id_usuario ], (error, result) => {
+            console.log(result);
+            if (error){
+                return res.status(500).json({error: "ERROR: Intente luego"});
+            }
+            if(result.affectedRows == 0){
+                return res.status(404).send({error : "ERROR: El usuario a modificar no existe"});
+            };
+            const usuario = {...req.body, ...req.params}; //... reconstruye el objeto del body
+            res.json(usuario); //acá muestro luego de reconstruir
+        });
+    })
 };
 
 
