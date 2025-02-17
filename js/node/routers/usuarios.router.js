@@ -11,12 +11,12 @@ const path = require('path');
 // Configuración de multer para el almacenamiento de archivos
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, './js/node/uploads') // Asegúrate de que este directorio exista
+      cb(null, "./js/node/uploads") // Asegúrate de que este directorio exista
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname))
-    }
-});
+    },
+})
 
 const uploads = multer({ storage, fileFilter: (req, file, cb) => {
     console.log(file);

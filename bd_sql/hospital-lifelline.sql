@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-02-2025 a las 22:41:10
+-- Tiempo de generación: 17-02-2025 a las 23:03:43
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -239,7 +239,10 @@ INSERT INTO `pacientes` (`id_paciente`, `apellido`, `nombre`, `fecha_nacimiento`
 
 CREATE TABLE `usuarios` (
   `id_usuario` int(11) NOT NULL,
+  `dni` varchar(9) NOT NULL,
   `nombre_usuario` varchar(50) NOT NULL,
+  `apellido_usuario` varchar(50) NOT NULL,
+  `nick` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `telefono_usuario` varchar(15) NOT NULL,
   `contrasenia_usuario` varchar(70) NOT NULL,
@@ -251,8 +254,8 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id_usuario`, `nombre_usuario`, `email`, `telefono_usuario`, `contrasenia_usuario`, `foto_perfil`, `fecha_usuario`) VALUES
-(7, 'Jorge Daniel 3 ', 'JD3@gmail.com', '1548-5633', '$2a$10$LsKP3XrZqUa.D2nqi1/3QuLEjjIuCGbf2AVrg3gu5bkZ6fv4BYCoS', '1731274425812.png', '2024-11-10 21:33:01');
+INSERT INTO `usuarios` (`id_usuario`, `dni`, `nombre_usuario`, `apellido_usuario`, `nick`, `email`, `telefono_usuario`, `contrasenia_usuario`, `foto_perfil`, `fecha_usuario`) VALUES
+(7, '', 'Jorge Daniel 3 ', '', '', 'JD3@gmail.com', '1548-5633', '$2a$10$LsKP3XrZqUa.D2nqi1/3QuLEjjIuCGbf2AVrg3gu5bkZ6fv4BYCoS', '1731274425812.png', '2024-11-10 21:33:01');
 
 --
 -- Índices para tablas volcadas
