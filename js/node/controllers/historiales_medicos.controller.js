@@ -1,7 +1,26 @@
 const db = require("../db/db");
 
 const allMedicalRecords = (req, res) => {
-    const sql = "SELECT * FROM historialesmedicos";
+    const sql = `
+    SELECT
+        hm.id_HistMedic,
+        hm.usuario_id,
+        usuarios.nombre AS nombre_paciente,
+        hm.fecha,
+        hm.especialidad_id,
+        especialidades.nombre AS nombre_especialidad,
+        hm.medico_id,
+        usuarios_medico.nombre AS nombre_medico,
+        hm.habitacion_id,
+        habitaciones.numero AS numero_habitacion,
+        hm.comprobante
+    FROM historiales_medicos hm
+    INNER JOIN usuarios ON hm.usuario_id = usuarios.id_usuario
+    INNER JOIN especialidades ON hm.especialidad_id = especialidades.id_especialidad
+    INNER JOIN medicos ON hm.medico_id = medicos.id_medico
+    INNER JOIN usuarios AS usuarios_medico ON medicos.usuario_id = usuarios_medico.id_usuario
+    INNER JOIN habitaciones ON hm.habitacion_id = habitaciones.id_habitacion
+`;
     db.query(sql, (error, rows) => {
         if(error){
             return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
@@ -11,9 +30,29 @@ const allMedicalRecords = (req, res) => {
 };
 
 const showMedicalRecord = (req, res) => {
-    const {id_historial} = req.params;
-    const sql = "SELECT * FROM historialesmedicos WHERE id_historial = ?";
-    db.query(sql,[id_historial], (error, rows) => {
+    const {id_HistMedic} = req.params;
+    const sql = `
+    SELECT
+        hm.id_HistMedic,
+        hm.usuario_id,
+        usuarios.nombre AS nombre_paciente,
+        hm.fecha,
+        hm.especialidad_id,
+        especialidades.nombre AS nombre_especialidad,
+        hm.medico_id,
+        usuarios_medico.nombre AS nombre_medico,
+        hm.habitacion_id,
+        habitaciones.numero AS numero_habitacion,
+        hm.comprobante
+    FROM historiales_medicos hm
+    INNER JOIN usuarios ON hm.usuario_id = usuarios.id_usuario
+    INNER JOIN especialidades ON hm.especialidad_id = especialidades.id_especialidad
+    INNER JOIN medicos ON hm.medico_id = medicos.id_medico
+    INNER JOIN usuarios AS usuarios_medico ON medicos.usuario_id = usuarios_medico.id_usuario
+    INNER JOIN habitaciones ON hm.habitacion_id = habitaciones.id_habitacion
+    WHERE hm.id_HistMedic = ?
+`;
+    db.query(sql,[id_HistMedic], (error, rows) => {
         
         if(error){
             return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
@@ -26,22 +65,32 @@ const showMedicalRecord = (req, res) => {
 };
 
 const storeMedicalRecord = (req, res) => {
-    const {fk_paciente, diagnostico, tratamiento, notas_adicionales} = req.body;
-    const sql = "INSERT INTO historialesmedicos (fk_paciente, diagnostico, tratamiento, notas_adicionales) VALUES (?,?,?,?)";
-    db.query(sql,[fk_paciente, diagnostico, tratamiento, notas_adicionales], (error, result) => {
+    const {usuario_id, fecha, especialidad_id, medico_id, habitacion_id, comprobante} = req.body;
+    if (!usuario_id || !fecha || !especialidad_id || !medico_id || !habitacion_id ) {
+    return res.status(400).json({ error: "Faltan datos obligatorios." });
+}
+    const sql = `
+    INSERT INTO historiales_medicos (usuario_id, fecha, especialidad_id, medico_id, habitacion_id, comprobante)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+`;
+    db.query(sql,[usuario_id, fecha, especialidad_id, medico_id, habitacion_id, comprobante || null], (error, result) => {
         if(error){
             return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
         }
-        const historial = {...req.body, id_historial: result.insertId, fecha_creacion: new Date()};
-        res.status(201).json(historial);
+        const HistMedic = {...req.body, id_HistMedic: result.insertId, fecha_creacion: new Date()};
+        res.status(201).json(HistMedic);
     });     
 };
 
 const updateMedicalRecord = (req, res) => {
-    const {id_historial} = req.params;
-    const {fk_paciente, diagnostico, tratamiento, notas_adicionales} = req.body;
-    const sql ="UPDATE historialesmedicos SET fk_paciente = ?, diagnostico = ?, tratamiento = ?, notas_adicionales = ? WHERE id_historial = ?";
-    db.query(sql,[fk_paciente, diagnostico, tratamiento, notas_adicionales, id_historial], (error, result) => {
+    const {id_HistMedic} = req.params;
+    const {usuario_id, fecha, especialidad_id, medico_id, habitacion_id, comprobante} = req.body;
+    const sql = `
+    UPDATE historiales_medicos
+    SET usuario_id = ?, fecha = ?, especialidad_id = ?, medico_id = ?, habitacion_id = ?, comprobante = ?
+    WHERE id_HistMedic = ?
+`;
+    db.query(sql,[usuario_id, fecha, especialidad_id, medico_id, habitacion_id, comprobante || null,  id_HistMedic], (error, result) => {
         if(error){
             return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
         }
@@ -54,9 +103,9 @@ const updateMedicalRecord = (req, res) => {
 };
 
 const destroyMedicalRecord = (req, res) => {
-    const {id_historial} = req.params;
-    const sql = "DELETE FROM historialesmedicos WHERE id_historial = ?";
-    db.query(sql,[id_historial], (error, result) => {
+    const {id_HistMedic} = req.params;
+    const sql = "DELETE FROM historiales_medicos WHERE id_HistMedic = ?";
+    db.query(sql,[id_HistMedic], (error, result) => {
         if(error){
             return res.status(500).json({error : "ERROR: Intente mas tarde por favor"});
         }

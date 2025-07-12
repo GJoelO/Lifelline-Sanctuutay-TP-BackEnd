@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/HomeStyle.css">
+    <link rel="stylesheet" href="/css/TurnoStyle.css">
+    <link rel="stylesheet" href="/css/UserMenu.css">
+    <link rel="stylesheet" href="/css/comprobante-styles.css">
+    <link rel="icon" href="/img/Logo PNG.png">
+    <title>Solicitud de Turno - Hospital Lifeline</title>
+</head>
+<body>
+    <header id="header">
+        <a href="/"><div class="logo"><img src="/img/Logo PNG.png" alt="Logo de Hospital"></div></a>
+
+        <input type="checkbox" id="check">
+        <label for="check" class="mostrar-menu">&#8801</label>
+
+        <nav class="navbar">
+            <a href="/turnos-fron">Solicitud de Turno</a>
+            <a href="/acerca-de">Acerca de</a>
+            <a href="/servicios">Servicios</a>
+            <a href="/contacto">Contacto</a>
+            
+            <!-- Menú de usuario con foto de perfil (se mostrará solo si el usuario está logueado) -->
+            <div class="user-profile-container" id="userProfileContainer" style="display: none;">
+                <div class="user-profile-img">
+                    <img src="" alt="Foto de perfil" id="profileImage">
+                </div>
+                <div class="user-dropdown-menu" id="userDropdownMenu">
+                    <div class="user-info">
+                        <span class="user-name" id="userName">Usuario</span>
+                        <span class="user-status">Usuario conectado</span>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a href="/perfil" class="dropdown-item">
+                        <i class="fi fi-rr-user"></i>
+                        <span>Mi perfil</span>
+                    </a>
+                    <a href="/configuraciones" class="dropdown-item">
+                        <i class="fi fi-rr-settings"></i>
+                        <span>Configuraciones</span>
+                    </a>
+                    <a href="/admin" class="dropdown-item" id="adminLink" style="display: none;">
+                        <i class="fi fi-rr-shield"></i>
+                        <span>Administrador</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item logout" id="logoutButton">
+                        <i class="fi fi-rr-sign-out"></i>
+                        <span>Cerrar sesión</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Botón de login (se mostrará solo si el usuario NO está logueado) -->
+            <button class="btnLogin-popup" onclick="window.location.href='/login-register'">Login</button>
+            <label for="check" class="esconder-menu">&#215</label>
+        </nav>
+    </header>
+
+    <main class="turno-main">
+        <div class="container">
+            <div id="formulario" class="turno-form-container">
+                <h1>Solicitud de Turno Médico</h1>
+                
+                <form id="solicitudForm" class="turno-form">
+                    <div class="form-group">
+                        <label for="especialidad">Especialidad Médica:</label>
+                        <select id="especialidad" name="especialidad" required>
+                            <option value="">Seleccione una especialidad</option>
+                        </select>
+                        <span class="error" id="especialidadError"></span>
+                    </div>
+
+                    <div class="form-group" id="medicoGroup" style="display: none;">
+                        <label for="medico">Médico:</label>
+                        <select id="medico" name="medico" required>
+                            <option value="">Seleccione un médico</option>
+                        </select>
+                        <span class="error" id="medicoError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fecha">Fecha del Turno:</label>
+                        <input type="date" id="fecha" name="fecha" required>
+                        <span class="error" id="fechaError"></span>
+                        <small class="form-help">Solo se pueden solicitar turnos a partir de mañana</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="provincia">Provincia:</label>
+                        <select id="provincia" name="provincia" required>
+                            <option value="">Seleccione una provincia</option>
+                        </select>
+                        <span class="error" id="provinciaError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="localidad">Localidad:</label>
+                        <input type="text" id="localidad" name="localidad" placeholder="Ingrese su localidad" required>
+                        <span class="error" id="localidadError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>¿Tiene obra social?</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="tieneObraSocial" value="si" required>
+                                <span class="radio-custom"></span>
+                                Sí
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="tieneObraSocial" value="no" required>
+                                <span class="radio-custom"></span>
+                                No
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="obraSocialGroup" style="display: none;">
+                        <label for="obraSocial">Obra Social:</label>
+                        <select id="obraSocial" name="obraSocial">
+                            <option value="">Seleccione su obra social</option>
+                        </select>
+                        <span class="error" id="obraSocialError"></span>
+                    </div>
+
+                    <div id="disponibilidadInfo" class="disponibilidad-info" style="display: none;">
+                        <div class="disponibilidad-content">
+                            <span class="disponibilidad-text">Turnos disponibles: <strong id="turnosDisponibles">10</strong>/10</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Solicitar Turno</button>
+                </form>
+            </div>
+
+            <!-- El comprobante se insertará aquí dinámicamente -->
+
+        </div>
+    </main>
+
+
+    <script src="/js/TurnoScript.js"></script>
+    <script src="/js/turno-comprobante.js"></script>
+    <script src="/js/statusScript.js"></script>
+    <script src="/js/turno-auth-guard.js"></script>
+    <script src="/js/admin-script.js"></script>
+    <script src="/js/auth-system.js"></script>
+    <script src="/js/TurnoScript.js"></script>
+    <script src="/js/userMenu.js"></script>
+</body>
+</html>

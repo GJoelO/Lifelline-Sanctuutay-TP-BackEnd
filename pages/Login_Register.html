@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/UserMenu.css">
+    <link rel="stylesheet" href="/css/HomeStyle.css">
+    <link rel="stylesheet" href="/css/LoginRegister.css">
+    <link rel="icon" href="/img/Logo PNG.png">
+    <title>Sistema de Login y Registro</title>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-thin-rounded/css/uicons-thin-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+</head>
+<body>
+    <header id="header">
+        <a href="/"><div class="logo"><img src="/img/Logo PNG.png" alt="Logo de Hospital"></div></a>
+
+        <input type="checkbox" id="check">
+        <label for="check" class="mostrar-menu">&#8801</label>
+
+        <nav class="navbar">
+            <a href="/turnos-fron">Solicitud de Turno</a>
+            <a href="/acerca-de">Acerca de</a>
+            <a href="/servicios">Servicios</a>
+            <a href="/contacto">Contacto</a>
+            
+            <!-- Menú de usuario con foto de perfil (se mostrará solo si el usuario está logueado) -->
+            <div class="user-profile-container" id="userProfileContainer" style="display: none;">
+                <div class="user-profile-img">
+                    <img src="/placeholder.svg" alt="Foto de perfil" id="profileImage">
+                </div>
+                <div class="user-dropdown-menu" id="userDropdownMenu">
+                    <div class="user-info">
+                        <span class="user-name" id="userName">Usuario</span>
+                        <span class="user-status">Usuario conectado</span>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a href="/perfil" class="dropdown-item">
+                        <i class="fi fi-rr-user"></i>
+                        <span>Mi perfil</span>
+                    </a>
+                    <a href="/configuraciones" class="dropdown-item">
+                        <i class="fi fi-rr-settings"></i>
+                        <span>Configuraciones</span>
+                    </a>
+                    <a href="/admin" class="dropdown-item" id="adminLink" style="display: none;">
+                        <i class="fi fi-rr-shield"></i>
+                        <span>Administrador</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item logout" id="logoutButton">
+                        <i class="fi fi-rr-sign-out"></i>
+                        <span>Cerrar sesión</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Botón de login (se mostrará solo si el usuario NO está logueado) -->
+            <button class="btnLogin-popup" onclick="window.location.href='/login-register'">Login</button>
+            <label for="check" class="esconder-menu">&#215</label>
+        </nav>
+    </header>
+    <div class="wrapper">
+        <span class="icon-close"><ion-icon name="close"></ion-icon></span>
+        <div class="form-box login">
+            <h2>Login</h2>
+            <form class="sign-in" id="form-login" enctype="multipart/form-data" method="POST">
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <input type="text" name="email" required>
+                    <label>Email</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                    <input type="password" name="password" required>
+                    <label>Password</label>
+                </div>
+                <div class="remember-forgot">
+                    <a href="#">¿Olvidaste tu contraseña?</a>
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <div class="login-register">
+                    <p>¿No tienes una cuenta?<a href="#" class="register-link">Register</a></p>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-box register">
+            <h2>Register</h2>
+            <form class="sign-up" id="form-registro" enctype="multipart/form-data" method="POST">
+                <div class="input-row">
+                    <div class="input-box half">
+                        <span class="icon"><ion-icon name="person"></ion-icon></span>
+                        <input type="text" id="firstName" name="firstName" required>
+                        <label>Nombre</label>
+                    </div>               
+                    <div class="input-box half">
+                        <span class="icon"><ion-icon name="person"></ion-icon></span>
+                        <input type="text" id="lastName" name="lastName" required>
+                        <label>Apellido</label>
+                    </div>
+                </div>
+                <div class="input-row">
+                    <div class="input-box half">
+                        <span class="icon"><ion-icon name="finger-print"></ion-icon></span>
+                        <input type="text"  id="dni" name="dni" required>
+                        <label>DNI</label>
+                    </div>
+                    <div class="input-box half">
+                        <span class="icon"><ion-icon name="call"></ion-icon></span>
+                        <input type="tel" id="phone" name="phone" required>
+                        <label>Telefono</label>
+                    </div>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <input type="text" id="email" name="email" required>
+                    <label>Email</label>
+                </div>
+                <div class="input-row">
+                    <div class="input-box half">
+                        <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                        <input type="password"  id="password" name="password" required>
+                        <label>Password</label>
+                    </div>
+                    <div class="input-box half">
+                        <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                        <input type="password"  id="confirm_password" name="confirm_password" required>
+                        <label>Confirmacion Password</label>
+                    </div>
+                </div>
+                <div class="file-input-box">
+                    <label for="profilePhoto" class="file-label" id="fileLabel">
+                        <!-- Contenido por defecto (sin imagen seleccionada) -->
+                        <div class="file-default-content" id="fileDefaultContent">
+                            <span class="icon"><ion-icon name="image"></ion-icon></span>
+                            <span class="file-text">Foto de Perfil: Seleccionar archivo</span>
+                        </div>
+                        
+                        <!-- Contenido cuando hay imagen seleccionada (inicialmente oculto) -->
+                        <div class="file-preview-content hidden" id="filePreviewContent">
+                            <img id="previewImg" src="/placeholder.svg" alt="Preview" class="preview-image">
+                            <div class="file-info">
+                                <p class="file-name" id="fileName"></p>
+                                <p class="file-size" id="fileSize"></p>
+                            </div>
+                            <button type="button" class="remove-file-btn" onclick="clearFileSelection()" title="Eliminar imagen">
+                                <ion-icon name="trash-outline"></ion-icon>
+                            </button>
+                        </div>
+                        
+                        <input type="file" id="profilePhoto" name="profilePhoto" accept="image/*" required>
+                    </label>
+                </div>
+                <button type="submit" class="btn">Register</button>
+                <div class="login-register">
+                    <p>¿Ya tienes una cuenta?<a href="#" class="login-link">Login</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="notification" class="notification"></div>
+    
+    <script src="/js/Login_RegisterScript.js"></script>
+    <script src="/js/TurnoScript.js"></script>
+    <script src="/js/statusScript.js"></script>
+    <script src="/js/userMenu.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

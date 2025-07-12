@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - Hospital Lifeline</title>
+    <link rel="stylesheet" href="../css/perfil.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/HomeStyle.css">
+    <link rel="stylesheet" href="/css/UserMenu.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-thin-rounded/css/uicons-thin-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+</head>
+<body>
+    <header id="header">
+        <a href="/"><div class="logo"><img src="/img/Logo PNG.png" alt="Logo de Hospital"></div></a>
+        
+        <input type="checkbox" id="check">
+        <label for="check" class="mostrar-menu">&#8801</label>
+        
+        <nav class="navbar">
+            <a href="/turnos-fron">Solicitud de Turno</a>
+            <a href="/#Home">Acerca de</a>
+            <a href="/#Home">Servicios</a>
+            <a href="/#Home">Contacto</a>
+            
+            <!-- Menú de usuario con foto de perfil -->
+            <div class="user-profile-container" id="userProfileContainer" style="display: none;">
+                <div class="user-profile-img">
+                    <img src="/placeholder.svg" alt="Foto de perfil" id="profileImageHeader">
+                </div>
+                <div class="user-dropdown-menu" id="userDropdownMenu">
+                    <div class="user-info">
+                        <span class="user-name" id="userNameHeader">Usuario</span>
+                        <span class="user-status">Usuario conectado</span>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a href="/Mi-Perfil" class="dropdown-item">
+                        <i class="fi fi-rr-user"></i>
+                        <span>Mi perfil</span>
+                    </a>
+                    <a href="/configuraciones" class="dropdown-item">
+                        <i class="fi fi-rr-settings"></i>
+                        <span>Configuraciones</span>
+                    </a>
+                    <a href="/admin" class="dropdown-item" id="adminLinkHeader" style="display: none;">
+                        <i class="fi fi-rr-shield"></i>
+                        <span>Administrador</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item logout" id="logoutButtonHeader">
+                        <i class="fi fi-rr-sign-out"></i>
+                        <span>Cerrar sesión</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Botón de login -->
+            <button class="btnLogin-popup" onclick="window.location.href='/login-register'">Login</button>
+            <label for="check" class="esconder-menu">&#215</label>
+        </nav>
+    </header>
+
+    <div class="profile-container">
+        <!-- Sección 1: Datos Personales -->
+        <section class="profile-section">
+            <div class="section-header">
+                <h2 class="section-title">Datos personales</h2>
+                <button id="btnEditPersonal" class="btn-save">
+                    <i class="fas fa-edit"></i> Editar
+                </button>
+            </div>
+            <div class="section-content">
+                <form id="formPersonal">
+                    <div class="photo-section">
+                        <div class="photo-container">
+                            <img id="profilePhoto" src="/placeholder.svg?height=120&width=120" alt="Foto de perfil" class="profile-photo">
+                            <input type="file" id="inputPhoto" accept="image/*" style="display: none;">
+                            <button type="button" id="btnChangePhoto" class="btn-change-photo" disabled>
+                                <i class="fas fa-camera"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="subsection">
+                        <h3 class="subsection-title">
+                            Datos principales
+                            <i class="fas fa-edit edit-icon" id="editIconPersonal" style="display: none;"></i>
+                        </h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="nombre">Nombre (*)</label>
+                                <input type="text" id="nombre" name="nombre" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="apellido">Apellido (*)</label>
+                                <input type="text" id="apellido" name="apellido" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="dni">Número de documento</label>
+                                <input type="text" id="dni" name="dni" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="genero">Género</label>
+                                <select id="genero" name="genero" disabled>
+                                    <option value="">Seleccionar...</option>
+                                </select>
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="cuil">Número de CUIT/CUIL (sin guiones) (*)</label>
+                                <input type="text" id="cuil" name="cuil" placeholder="Ingrese su CUIT/CUIL" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions" style="display: none;">
+                        <button type="submit" class="btn-save">
+                            <i class="fas fa-save"></i> Guardar
+                        </button>
+                        <button type="button" id="btnCancelPersonal" class="btn-cancel">
+                            <i class="fas fa-times"></i> Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Sección 2: Domicilio -->
+        <section class="profile-section">
+            <div class="section-header">
+                <h2 class="section-title">Domicilio</h2>
+                <button id="btnEditDomicilio" class="btn-save">
+                    <i class="fas fa-edit"></i> Editar
+                </button>
+            </div>
+            <div class="section-content">
+                <form id="formDomicilio">
+                    <div class="subsection">
+                        <h3 class="subsection-title">
+                            Domicilio Actual
+                            <i class="fas fa-edit edit-icon" id="editIconDomicilio" style="display: none;"></i>
+                        </h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="calle">Calle (*)</label>
+                                <input type="text" id="calle" name="calle" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="numero">Número (*)</label>
+                                <input type="text" id="numero" name="numero" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="localidad">Localidad (*)</label>
+                                <input type="text" id="localidad" name="localidad" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="barrio">Barrio (*)</label>
+                                <input type="text" id="barrio" name="barrio" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions" style="display: none;">
+                        <button type="submit" class="btn-save">
+                            <i class="fas fa-save"></i> Guardar
+                        </button>
+                        <button type="button" id="btnCancelDomicilio" class="btn-cancel">
+                            <i class="fas fa-times"></i> Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Sección 3: Datos de Contacto -->
+        <section class="profile-section">
+            <div class="section-header">
+                <h2 class="section-title">Datos de contacto</h2>
+                <button id="btnAddContacto" class="btn-add">
+                    <i class="fas fa-plus"></i> Agregar
+                </button>
+            </div>
+            <div class="section-content">
+                <div class="table-container">
+                    <table class="contact-table">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Contacto</th>
+                                <th class="actions-column"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="contactTableBody">
+                            <!-- Los contactos se cargarán dinámicamente -->
+                        </tbody>
+                    </table>
+                    <div id="noContactsMessage" class="empty-message" style="display: none;">
+                        <p>No hay datos de contacto registrados</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 4: Estudios (Historial Médico) -->
+        <section class="profile-section">
+            <div class="section-header">
+                <h2 class="section-title">Estudios</h2>
+            </div>
+            <div class="section-content">
+                <div class="table-container">
+                    <table class="studies-table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Diagnóstico</th>
+                                <th>Tratamiento</th>
+                                <th>Médico</th>
+                                <th>Especialidad</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studiesTableBody">
+                            <!-- El historial médico se cargará dinámicamente -->
+                        </tbody>
+                    </table>
+                    <div id="noStudiesMessage" class="empty-message" style="display: none;">
+                        <p>No hay estudios médicos registrados</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal para agregar/editar contacto -->
+    <div id="modalContacto" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Agregar Contacto</h3>
+                <span class="close">&times;</span>
+            </div>
+            <form id="formContacto">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="tipoContacto">Tipo</label>
+                        <select id="tipoContacto" name="tipo" required>
+                            <option value="">Seleccionar...</option>
+                            <option value="Email Principal">Email Principal</option>
+                            <option value="Teléfono Celular">Teléfono Celular</option>
+                            <option value="Email Secundario">Email Secundario</option>
+                            <option value="Teléfono Fijo">Teléfono Fijo</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="valorContacto">Contacto</label>
+                        <input type="text" id="valorContacto" name="contacto" required>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn-save">
+                        <i class="fas fa-save"></i> Guardar
+                    </button>
+                    <button type="button" class="btn-cancel" onclick="closeModal()">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/perfil.js"></script>
+    <script src="/js/auth-system.js"></script>
+    <script src="/js/userMenu.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-02-2025 a las 23:03:43
+-- Tiempo de generación: 18-06-2025 a las 00:14:21
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -24,72 +24,50 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `citas`
---
-
-CREATE TABLE `citas` (
-  `id_cita` int(10) NOT NULL,
-  `fk_paciente` int(10) NOT NULL,
-  `fk_medico` int(10) NOT NULL,
-  `fecha_hora` timestamp NOT NULL DEFAULT current_timestamp(),
-  `motivo` varchar(100) NOT NULL,
-  `estado` enum('Programada','Completada','Cancelada') NOT NULL DEFAULT 'Programada'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `citas`
---
-
-INSERT INTO `citas` (`id_cita`, `fk_paciente`, `fk_medico`, `fecha_hora`, `motivo`, `estado`) VALUES
-(11, 1, 1, '2024-11-07 01:57:27', 'Consulta de rutina', 'Programada'),
-(12, 2, 3, '2024-11-09 18:42:13', 'Revisión pediátrica', 'Completada'),
-(14, 4, 6, '2024-11-07 01:57:27', 'Revisión de oídos', 'Programada'),
-(15, 5, 8, '2024-11-07 01:57:27', 'Consulta urológica', 'Programada'),
-(17, 2, 3, '2024-11-09 18:38:44', 'Consulta de rutina', 'Cancelada');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `departamentos`
---
-
-CREATE TABLE `departamentos` (
-  `id_departamento` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `descripcion` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `departamentos`
---
-
-INSERT INTO `departamentos` (`id_departamento`, `nombre`, `descripcion`) VALUES
-(2, 'Ginecología y obstetricia', 'Atención médica para niños y adolescentes ');
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `especialidades`
 --
 
 CREATE TABLE `especialidades` (
-  `id_especialidad` int(10) NOT NULL,
-  `especialidad` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `id_especialidad` bigint(20) NOT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
+  `imagen_especialidad` varchar(255) DEFAULT NULL,
+  `descripcion` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `especialidades`
 --
 
-INSERT INTO `especialidades` (`id_especialidad`, `especialidad`) VALUES
-(1, 'Dermatología'),
-(2, 'Ginecología y obstetricia'),
-(3, 'Pediatría'),
-(4, 'Odontología'),
-(5, 'Oftalmología'),
-(6, 'Otorrinolaringología'),
-(7, 'Traumatología y Ortopedia'),
-(8, 'Urología');
+INSERT INTO `especialidades` (`id_especialidad`, `nombre`, `imagen_especialidad`, `descripcion`) VALUES
+(1, 'Oftalmologia', '1749697521538.jpg', 'La oftalmología es la rama de la medicina que se dedica al estudio, diagnóstico y tratamiento de las enfermedades y trastornos relacionados con los ojos y la visión. Los oftalmólogos son especialistas médicos que pueden realizar exámenes oculares, diagnosticar problemas visuales, recetar medicamentos y realizar procedimientos quirúrgicos para tratar afecciones oculares.'),
+(3, 'Dermatología', '1749697542287.jpg', 'La dermatología es una rama de la medicina que se enfoca en el estudio, diagnóstico, tratamiento y prevención de enfermedades y afecciones de la piel, el cabello y las uñas. Los dermatólogos son los especialistas que se encargan de este cuidado.'),
+(4, 'Ginecología y obstetricia', '1749697679476.webp', 'La Ginecología y Obstetricia es una especialidad médica que se enfoca en la salud reproductiva femenina y la atención del embarazo y el parto. Abarca tanto la prevención, diagnóstico y tratamiento de enfermedades del aparato reproductor femenino, como el cuidado integral durante el embarazo, el parto y el puerperio.'),
+(5, 'Pediatría', '1749697709602.jpg', 'La pediatría es la rama de la medicina que se dedica a la salud y el cuidado de los niños y adolescentes, desde su nacimiento hasta el final de la adolescencia. Su objetivo principal es prevenir, diagnosticar y tratar enfermedades y trastornos que pueden afectar el desarrollo y bienestar de los niños.'),
+(6, 'Odontología', '1749697733301.jpg', 'La odontología es la especialidad médica que se dedica al estudio, diagnóstico, prevención y tratamiento de enfermedades y trastornos que afectan los dientes, encías, boca y mandíbula. Se enfoca en la salud bucal, incluyendo la estética, la función y el bienestar general relacionado con la boca.'),
+(7, 'Oftalmología', '1749697764011.jpg', 'La oftalmología es la rama de la medicina que se dedica al estudio, diagnóstico y tratamiento de las enfermedades y trastornos relacionados con los ojos y la visión. Los oftalmólogos son especialistas médicos que pueden realizar exámenes oculares, diagnosticar problemas visuales, recetar medicamentos y realizar procedimientos quirúrgicos para tratar afecciones oculares.'),
+(8, 'Otorrinolaringología', '1749697797475.jpg', 'La otorrinolaringología es la especialidad médica y quirúrgica que se enfoca en las afecciones del oído, la nariz y la garganta, así como en las funciones que se derivan de estas. Incluye la prevención, diagnóstico, tratamiento y rehabilitación de enfermedades que afectan la audición, la respiración, el olfato, el equilibrio y la deglución.'),
+(9, 'Traumatología y Ortopedia', '1749697823100.jpg', 'La traumatología y ortopedia es la especialidad médica que se dedica al estudio, diagnóstico y tratamiento de afecciones del sistema musculoesquelético, que incluye huesos, articulaciones, músculos, tendones y ligamentos. Se enfoca en lesiones traumáticas (fracturas, luxaciones), enfermedades congénitas y degenerativas (como artrosis), infecciones, y lesiones tumorales.'),
+(10, 'Urología', '1749697844772.jpg', 'La urología es la especialidad médica que se enfoca en el diagnóstico y tratamiento de enfermedades y problemas relacionados con el sistema urinario y el aparato reproductor masculino, tanto en hombres como en mujeres. Incluye la prevención, diagnóstico y tratamiento de enfermedades renales, del tracto urinario, y del aparato genital masculino.');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `generos`
+--
+
+CREATE TABLE `generos` (
+  `id_genero` bigint(20) NOT NULL,
+  `descripcion` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `generos`
+--
+
+INSERT INTO `generos` (`id_genero`, `descripcion`) VALUES
+(1, 'Masculino'),
+(2, 'Femenino'),
+(3, 'Otro');
 
 -- --------------------------------------------------------
 
@@ -98,76 +76,58 @@ INSERT INTO `especialidades` (`id_especialidad`, `especialidad`) VALUES
 --
 
 CREATE TABLE `habitaciones` (
-  `id_habitacion` int(10) NOT NULL,
-  `numero` varchar(10) NOT NULL,
-  `tipo` enum('Individual','Doble','Suite') NOT NULL,
-  `estado` enum('Disponible','Ocupada','En mantenimiento') NOT NULL DEFAULT 'Disponible',
-  `precio_por_dia` decimal(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `id_habitacion` bigint(20) NOT NULL,
+  `numero` varchar(10) DEFAULT NULL,
+  `tipo` varchar(50) DEFAULT NULL,
+  `piso` varchar(10) DEFAULT NULL,
+  `estado` varchar(50) DEFAULT NULL,
+  `imagen_habitacion` varchar(255) DEFAULT NULL,
+  `descripcion` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `habitaciones`
 --
 
-INSERT INTO `habitaciones` (`id_habitacion`, `numero`, `tipo`, `estado`, `precio_por_dia`) VALUES
-(1, '101', 'Individual', 'Ocupada', 100.00),
-(2, '102', 'Doble', 'Ocupada', 150.00),
-(3, '103', 'Suite', 'Disponible', 250.00),
-(4, '201', 'Individual', 'En mantenimiento', 100.00),
-(5, '202', 'Doble', 'Disponible', 150.00);
+INSERT INTO `habitaciones` (`id_habitacion`, `numero`, `tipo`, `piso`, `estado`, `imagen_habitacion`, `descripcion`) VALUES
+(1, '404', 'Grande', '1', 'disponible', '1749698420652.jpg', 'Una habitación grande de hospital está diseñada para alojar a múltiples pacientes, generalmente cuatro o más, en un mismo espacio. Cuenta con varias camillas separadas por cortinas o biombos para brindar privacidad, además de equipamiento médico básico junto a cada unidad, como soportes para suero, monitores de signos vitales y mesitas móviles. La iluminación es abundante y el ambiente está climatizado, garantizando condiciones óptimas de higiene, comodidad y atención médica.'),
+(2, '101', 'Chica', '1', 'mantenimiento', '1749698509898.jpeg', 'Una habitación chica de hospital es un espacio individual destinado a un solo paciente. Cuenta con una única camilla y está equipada con los elementos esenciales para su atención, como una mesa de luz, soporte para suero, monitor de signos vitales y baño privado en muchos casos. Ofrece mayor privacidad, tranquilidad y comodidad, siendo ideal para pacientes que requieren observación más personalizada o condiciones especiales de aislamiento.'),
+(3, '202', 'Mediana', '1', 'ocupada', '1749698599711.jpg', 'Una habitación mediana de hospital está diseñada para alojar entre dos y tres pacientes. Dispone de camillas distribuidas con suficiente espacio entre ellas, separadas por cortinas o biombos para mantener cierta privacidad. Cada puesto cuenta con equipamiento básico como soporte para suero, toma de oxígeno y mesita auxiliar. Este tipo de habitación ofrece un equilibrio entre atención personalizada y uso eficiente del espacio hospitalario.');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `historialesmedicos`
+-- Estructura de tabla para la tabla `historiales_medicos`
 --
 
-CREATE TABLE `historialesmedicos` (
-  `id_historial` int(10) NOT NULL,
-  `fk_paciente` int(10) NOT NULL,
-  `fecha_creacion` datetime NOT NULL DEFAULT current_timestamp(),
-  `diagnostico` text NOT NULL,
-  `tratamiento` text NOT NULL,
-  `notas_adicionales` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `historialesmedicos`
---
-
-INSERT INTO `historialesmedicos` (`id_historial`, `fk_paciente`, `fecha_creacion`, `diagnostico`, `tratamiento`, `notas_adicionales`) VALUES
-(1, 1, '2024-11-06 22:58:05', 'Dermatitis atópica', 'Crema hidratante y corticosteroides tópicos', 'Seguimiento en 1 semanas'),
-(2, 2, '2024-11-06 22:58:05', 'Otitis media', 'Antibióticos orales', 'Revisión en 7 días'),
-(3, 3, '2024-11-06 22:58:05', 'Caries dental', 'Empaste dental', 'Programar limpieza en 6 meses'),
-(4, 4, '2024-11-06 22:58:05', 'Sinusitis crónica', 'Spray nasal con corticosteroides', 'Considerar cirugía si no mejora'),
-(5, 5, '2024-11-06 22:58:05', 'Infección del tracto urinario', 'Antibióticos', 'Aumentar ingesta de líquidos'),
-(6, 1, '2024-11-09 16:49:41', 'Ginecología y obstetricia', 'Control de Ovarios', 'Seguimiento en 1 mes');
+CREATE TABLE `historiales_medicos` (
+  `id_HistMedic` bigint(20) NOT NULL,
+  `usuario_id` bigint(20) DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  `especialidad_id` bigint(20) DEFAULT NULL,
+  `medico_id` bigint(20) DEFAULT NULL,
+  `habitacion_id` bigint(20) DEFAULT NULL,
+  `comprobante` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `medicamentos`
+-- Estructura de tabla para la tabla `hospital`
 --
 
-CREATE TABLE `medicamentos` (
-  `id_medicamento` int(10) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `descripcion` text DEFAULT NULL,
-  `dosis_recomendada` varchar(50) NOT NULL,
-  `efectos_secundarios` text DEFAULT NULL,
-  `stock` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `hospital` (
+  `id_hospital` bigint(20) NOT NULL,
+  `imagen_hospital` varchar(255) DEFAULT NULL,
+  `descripcion` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `medicamentos`
+-- Volcado de datos para la tabla `hospital`
 --
 
-INSERT INTO `medicamentos` (`id_medicamento`, `nombre`, `descripcion`, `dosis_recomendada`, `efectos_secundarios`, `stock`) VALUES
-(1, 'Paracetamol', 'Analgésico y antipirético', '500mg cada 6 horas', 'Raros en dosis recomendadas', 1000),
-(2, 'Amoxicilina', 'Antibiótico de amplio espectro', '500mg cada 8 horas', 'Náuseas, diarrea', 500),
-(3, 'Ibuprofeno', 'Antiinflamatorio no esteroideo', '400mg cada 6-8 horas', 'Molestias gastrointestinales', 550),
-(4, 'Omeprazol', 'Inhibidor de la bomba de protones', '20mg una vez al día', 'Dolor de cabeza, náuseas', 300),
-(5, 'Loratadina', 'Antihistamínico', '10mg una vez al día', 'Somnolencia leve', 400);
+INSERT INTO `hospital` (`id_hospital`, `imagen_hospital`, `descripcion`) VALUES
+(2, 'hospital-1750133026763-761032181.jpg', 'Acerca de Nuestro Hospital\r\nComprometidos con tu salud, presentes en todo el país.\r\n\r\nNos enorgullece anunciar la apertura de nuestro nuevo Hospital Central en Buenos Aires, un paso fundamental para llevar atención médica de calidad a cada provincia de Argentina.\r\n\r\nDesde nuestra sede original en Wapusk, Canadá, trabajamos con dedicación para brindar una atención humana, profesional y accesible, y hoy, con clínicas distribuidas por todo el país, reafirmamos nuestro compromiso con el bienestar de cada paciente.\r\n\r\nUna identidad con historia\r\nNuestro logo, un oso, representa fuerza, protección y vigilancia constante. En Wapusk cuyo nombre significa “oso polar” hemos convivido durante años con estos majestuosos animales. Esa experiencia nos enseñó el valor del respeto, la atención y el cuidado, valores que hoy trasladamos al ámbito de la salud. El oso es, para nosotros, un recordatorio de nuestro compromiso de proteger y acompañar siempre a quienes confían en nuestro hospital.\r\n\r\nNuestra misión\r\nEn cada clínica, en cada consulta, y en cada gesto, reafirmamos nuestro propósito:\r\nCuidar tu salud, acompañarte en cada etapa de la vida, y estar cuando más nos necesitás.\r\n\r\n¡Gracias por confiar en nosotros!');
 
 -- --------------------------------------------------------
 
@@ -176,60 +136,104 @@ INSERT INTO `medicamentos` (`id_medicamento`, `nombre`, `descripcion`, `dosis_re
 --
 
 CREATE TABLE `medicos` (
-  `id_medico` int(10) NOT NULL,
-  `fk_especialidad` int(10) NOT NULL,
-  `apellido` varchar(50) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `edad` tinyint(3) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `telefono` varchar(15) NOT NULL,
-  `años_ejerciendo` tinyint(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `id_medico` bigint(20) NOT NULL,
+  `usuario_id` bigint(20) DEFAULT NULL,
+  `estado` enum('libre','ocupado') DEFAULT 'libre',
+  `especialidad_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `medicos`
 --
 
-INSERT INTO `medicos` (`id_medico`, `fk_especialidad`, `apellido`, `nombre`, `edad`, `email`, `telefono`, `años_ejerciendo`) VALUES
-(1, 1, 'Pérez', 'Juan', 40, 'juan.perez@email.com', '5555-1234', 10),
-(3, 3, 'López', 'Carlos', 35, 'carlos.lopez@email.com', '5555-8765', 7),
-(4, 4, 'Martínez', 'Ana', 38, 'ana.martinez@email.com', '5555-4321', 12),
-(5, 5, 'Sánchez', 'Luis', 28, 'luis.sanchez@email.com', '5555-1111', 4),
-(6, 6, 'Ramírez', 'Laura', 33, 'laura.ramirez@email.com', '5555-2222', 8),
-(7, 7, 'Fernández', 'Javier', 42, 'javier.fernandez@email.com', '5555-3333', 6),
-(8, 8, 'Hernández', 'Patricia', 31, 'patricia.hernandez@email.com', '5555-4444', 3),
-(9, 1, 'Morales', 'Diego', 39, 'diego.morales@email.com', '5555-5555', 9),
-(10, 2, 'Torres', 'Carmen', 40, 'carmen.torres@email.com', '5555-6666', 11),
-(11, 2, 'Perez', 'Gonzalo', 55, 'Perez-Gonzalo@email.com', '5555-8547', 15);
+INSERT INTO `medicos` (`id_medico`, `usuario_id`, `estado`, `especialidad_id`) VALUES
+(1, 2, 'ocupado', 1),
+(2, 3, 'libre', 1);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `pacientes`
+-- Estructura de tabla para la tabla `obras_sociales`
 --
 
-CREATE TABLE `pacientes` (
-  `id_paciente` int(10) NOT NULL,
-  `apellido` varchar(50) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `fecha_nacimiento` date NOT NULL,
-  `genero` enum('Masculino','Femenino','Otro') NOT NULL,
-  `direccion` varchar(100) NOT NULL,
-  `telefono` varchar(15) NOT NULL,
-  `email` varchar(50) DEFAULT NULL,
-  `grupo_sanguineo` enum('A+','A-','B+','B-','AB+','AB-','O+','O-') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `obras_sociales` (
+  `id_OS` bigint(20) NOT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
+  `codigo` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `pacientes`
+-- Volcado de datos para la tabla `obras_sociales`
 --
 
-INSERT INTO `pacientes` (`id_paciente`, `apellido`, `nombre`, `fecha_nacimiento`, `genero`, `direccion`, `telefono`, `email`, `grupo_sanguineo`) VALUES
-(1, 'García', 'María', '1990-05-15', 'Femenino', 'Calle Principal 123', '5555-9876', 'maria.garcia@email.com', 'O+'),
-(2, 'Rodríguez', 'Carlos', '2015-08-20', 'Masculino', 'Avenida Central 456', '5555-5678', 'carlos.rodriguez@email.com', 'A-'),
-(3, 'Martínez', 'Ana', '1985-12-10', 'Femenino', 'Plaza Mayor 789', '5555-4321', 'ana.martinez@email.com', 'B+'),
-(4, 'López', 'Juan', '1978-03-25', 'Masculino', 'Calle Secundaria 321', '5555-8765', 'juan.lopez@email.com', 'O+'),
-(5, 'Fernández', 'Laura', '2000-07-30', 'Femenino', 'Avenida del Parque 654', '5555-2345', 'laura.fernandez@email.com', 'O-');
+INSERT INTO `obras_sociales` (`id_OS`, `nombre`, `codigo`) VALUES
+(1, 'OSDE', NULL),
+(2, 'IOMA', NULL),
+(3, 'IOSFA', NULL),
+(4, 'OSECAC', NULL),
+(5, 'OSPAT', NULL),
+(6, 'Sancor Salud', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `perfil_usuario`
+--
+
+CREATE TABLE `perfil_usuario` (
+  `id_perfil` bigint(20) NOT NULL,
+  `usuario_id` bigint(20) NOT NULL,
+  `genero_id` bigint(20) DEFAULT NULL,
+  `cuil` varchar(20) DEFAULT NULL,
+  `calle` varchar(255) DEFAULT NULL,
+  `numero` varchar(10) DEFAULT NULL,
+  `localidad` varchar(100) DEFAULT NULL,
+  `barrio` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `roles`
+--
+
+CREATE TABLE `roles` (
+  `id_rol` bigint(20) NOT NULL,
+  `nombre` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `roles`
+--
+
+INSERT INTO `roles` (`id_rol`, `nombre`) VALUES
+(3, 'administrador'),
+(4, 'dueño'),
+(2, 'medico'),
+(1, 'paciente');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `turnos`
+--
+
+CREATE TABLE `turnos` (
+  `id_turno` bigint(20) NOT NULL,
+  `usuario_id` bigint(20) DEFAULT NULL,
+  `medico_id` bigint(20) DEFAULT NULL,
+  `especialidad_id` bigint(20) DEFAULT NULL,
+  `obra_social_id` bigint(20) DEFAULT NULL,
+  `habitacion_id` bigint(20) DEFAULT NULL,
+  `fecha_turno` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `turnos`
+--
+
+INSERT INTO `turnos` (`id_turno`, `usuario_id`, `medico_id`, `especialidad_id`, `obra_social_id`, `habitacion_id`, `fecha_turno`) VALUES
+(1, 1, 2, 1, 5, 1, '2025-06-30');
 
 -- --------------------------------------------------------
 
@@ -238,42 +242,31 @@ INSERT INTO `pacientes` (`id_paciente`, `apellido`, `nombre`, `fecha_nacimiento`
 --
 
 CREATE TABLE `usuarios` (
-  `id_usuario` int(11) NOT NULL,
-  `dni` varchar(9) NOT NULL,
-  `nombre_usuario` varchar(50) NOT NULL,
-  `apellido_usuario` varchar(50) NOT NULL,
-  `nick` varchar(50) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `telefono_usuario` varchar(15) NOT NULL,
-  `contrasenia_usuario` varchar(70) NOT NULL,
-  `foto_perfil` varchar(255) NOT NULL,
-  `fecha_usuario` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `id_usuario` bigint(20) NOT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
+  `apellido` varchar(255) DEFAULT NULL,
+  `dni` varchar(20) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `telefono` varchar(20) DEFAULT NULL,
+  `contrasena` varchar(255) DEFAULT NULL,
+  `foto_perfil` varchar(255) DEFAULT NULL,
+  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
+  `rol_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id_usuario`, `dni`, `nombre_usuario`, `apellido_usuario`, `nick`, `email`, `telefono_usuario`, `contrasenia_usuario`, `foto_perfil`, `fecha_usuario`) VALUES
-(7, '', 'Jorge Daniel 3 ', '', '', 'JD3@gmail.com', '1548-5633', '$2a$10$LsKP3XrZqUa.D2nqi1/3QuLEjjIuCGbf2AVrg3gu5bkZ6fv4BYCoS', '1731274425812.png', '2024-11-10 21:33:01');
+INSERT INTO `usuarios` (`id_usuario`, `nombre`, `apellido`, `dni`, `email`, `telefono`, `contrasena`, `foto_perfil`, `fecha_creacion`, `rol_id`) VALUES
+(1, 'Daniela', 'Protoc', '29483547', 'DanielaProtoc@gmail.com', '1145963256', '$2a$08$vNTs9MW6b3.lCu2GIgHSqO1ZvgTNxiICgqmw9mY3.D.O1vi/7xcW6', '1749689921458.png', '2025-06-12 00:57:33', 1),
+(2, 'Jorge', 'Mendez', '21589632', 'JorgeMendez@gmail.com', '1185964563', '$2a$08$ZGXLYBK0PYRXmW4xbst9buE9/fifYQxCAPHvLWJnFkptuANb2SVPq', '1749690224517.png', '2025-06-12 01:03:44', 3),
+(3, 'Pablo', 'Pascual', '20896354', 'PPascual@gmail.com', '1156853241', '$2a$08$MOlbm3LS.GkmBrI5fq.ALu6fu7MYzTMp/cSusjrvgtvoZmr/Aa7O.', '1750116609261.png', '2025-06-12 01:12:04', 2),
+(4, 'Joel', 'Mansilla', '35689421', 'MansillaJoel@gmail.com', '1125586140', '$2a$08$rr4libRMRFlm341phQwKpeh0ZMQZIRRcN7.Sv/352x5NeXxzgQQGm', '1749863370770.png', '2025-06-14 01:09:30', 1);
 
 --
 -- Índices para tablas volcadas
 --
-
---
--- Indices de la tabla `citas`
---
-ALTER TABLE `citas`
-  ADD PRIMARY KEY (`id_cita`),
-  ADD KEY `fk_paciente` (`fk_paciente`),
-  ADD KEY `fk_medico` (`fk_medico`);
-
---
--- Indices de la tabla `departamentos`
---
-ALTER TABLE `departamentos`
-  ADD PRIMARY KEY (`id_departamento`);
 
 --
 -- Indices de la tabla `especialidades`
@@ -282,123 +275,195 @@ ALTER TABLE `especialidades`
   ADD PRIMARY KEY (`id_especialidad`);
 
 --
+-- Indices de la tabla `generos`
+--
+ALTER TABLE `generos`
+  ADD PRIMARY KEY (`id_genero`);
+
+--
 -- Indices de la tabla `habitaciones`
 --
 ALTER TABLE `habitaciones`
   ADD PRIMARY KEY (`id_habitacion`);
 
 --
--- Indices de la tabla `historialesmedicos`
+-- Indices de la tabla `historiales_medicos`
 --
-ALTER TABLE `historialesmedicos`
-  ADD PRIMARY KEY (`id_historial`),
-  ADD KEY `fk_paciente` (`fk_paciente`);
+ALTER TABLE `historiales_medicos`
+  ADD PRIMARY KEY (`id_HistMedic`),
+  ADD KEY `fk_usuario_hm` (`usuario_id`),
+  ADD KEY `fk_especialidad_hm` (`especialidad_id`),
+  ADD KEY `fk_medico_hm` (`medico_id`),
+  ADD KEY `fk_habitacion_hm` (`habitacion_id`);
 
 --
--- Indices de la tabla `medicamentos`
+-- Indices de la tabla `hospital`
 --
-ALTER TABLE `medicamentos`
-  ADD PRIMARY KEY (`id_medicamento`);
+ALTER TABLE `hospital`
+  ADD PRIMARY KEY (`id_hospital`);
 
 --
 -- Indices de la tabla `medicos`
 --
 ALTER TABLE `medicos`
   ADD PRIMARY KEY (`id_medico`),
-  ADD KEY `fk_medico_profesion` (`fk_especialidad`);
+  ADD KEY `fk_usuario_medico` (`usuario_id`),
+  ADD KEY `fk_especialidad_medico` (`especialidad_id`);
 
 --
--- Indices de la tabla `pacientes`
+-- Indices de la tabla `obras_sociales`
 --
-ALTER TABLE `pacientes`
-  ADD PRIMARY KEY (`id_paciente`);
+ALTER TABLE `obras_sociales`
+  ADD PRIMARY KEY (`id_OS`),
+  ADD UNIQUE KEY `nombre` (`nombre`);
+
+--
+-- Indices de la tabla `perfil_usuario`
+--
+ALTER TABLE `perfil_usuario`
+  ADD PRIMARY KEY (`id_perfil`),
+  ADD UNIQUE KEY `uk_usuario` (`usuario_id`),
+  ADD KEY `genero_id` (`genero_id`);
+
+--
+-- Indices de la tabla `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id_rol`),
+  ADD UNIQUE KEY `nombre` (`nombre`);
+
+--
+-- Indices de la tabla `turnos`
+--
+ALTER TABLE `turnos`
+  ADD PRIMARY KEY (`id_turno`),
+  ADD KEY `fk_usuario_turno` (`usuario_id`),
+  ADD KEY `fk_medico_turno` (`medico_id`),
+  ADD KEY `fk_especialidad_turno` (`especialidad_id`),
+  ADD KEY `fk_obra_social_turno` (`obra_social_id`),
+  ADD KEY `fk_habitacion_turno` (`habitacion_id`);
 
 --
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id_usuario`);
+  ADD PRIMARY KEY (`id_usuario`),
+  ADD UNIQUE KEY `dni` (`dni`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `fk_rol_usuario` (`rol_id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT de la tabla `citas`
---
-ALTER TABLE `citas`
-  MODIFY `id_cita` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT de la tabla `departamentos`
---
-ALTER TABLE `departamentos`
-  MODIFY `id_departamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT de la tabla `especialidades`
 --
 ALTER TABLE `especialidades`
-  MODIFY `id_especialidad` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_especialidad` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `generos`
+--
+ALTER TABLE `generos`
+  MODIFY `id_genero` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `habitaciones`
 --
 ALTER TABLE `habitaciones`
-  MODIFY `id_habitacion` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_habitacion` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `historialesmedicos`
+-- AUTO_INCREMENT de la tabla `historiales_medicos`
 --
-ALTER TABLE `historialesmedicos`
-  MODIFY `id_historial` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+ALTER TABLE `historiales_medicos`
+  MODIFY `id_HistMedic` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `medicamentos`
+-- AUTO_INCREMENT de la tabla `hospital`
 --
-ALTER TABLE `medicamentos`
-  MODIFY `id_medicamento` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `hospital`
+  MODIFY `id_hospital` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `medicos`
 --
 ALTER TABLE `medicos`
-  MODIFY `id_medico` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_medico` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `pacientes`
+-- AUTO_INCREMENT de la tabla `obras_sociales`
 --
-ALTER TABLE `pacientes`
-  MODIFY `id_paciente` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `obras_sociales`
+  MODIFY `id_OS` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `perfil_usuario`
+--
+ALTER TABLE `perfil_usuario`
+  MODIFY `id_perfil` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id_rol` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `turnos`
+--
+ALTER TABLE `turnos`
+  MODIFY `id_turno` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_usuario` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `citas`
+-- Filtros para la tabla `historiales_medicos`
 --
-ALTER TABLE `citas`
-  ADD CONSTRAINT `citas_ibfk_1` FOREIGN KEY (`fk_paciente`) REFERENCES `pacientes` (`id_paciente`),
-  ADD CONSTRAINT `citas_ibfk_2` FOREIGN KEY (`fk_medico`) REFERENCES `medicos` (`id_medico`);
-
---
--- Filtros para la tabla `historialesmedicos`
---
-ALTER TABLE `historialesmedicos`
-  ADD CONSTRAINT `historialesmedicos_ibfk_1` FOREIGN KEY (`fk_paciente`) REFERENCES `pacientes` (`id_paciente`);
+ALTER TABLE `historiales_medicos`
+  ADD CONSTRAINT `fk_especialidad_hm` FOREIGN KEY (`especialidad_id`) REFERENCES `especialidades` (`id_especialidad`),
+  ADD CONSTRAINT `fk_habitacion_hm` FOREIGN KEY (`habitacion_id`) REFERENCES `habitaciones` (`id_habitacion`),
+  ADD CONSTRAINT `fk_medico_hm` FOREIGN KEY (`medico_id`) REFERENCES `medicos` (`id_medico`),
+  ADD CONSTRAINT `fk_usuario_hm` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id_usuario`);
 
 --
 -- Filtros para la tabla `medicos`
 --
 ALTER TABLE `medicos`
-  ADD CONSTRAINT `fk_medico_profesion` FOREIGN KEY (`fk_especialidad`) REFERENCES `especialidades` (`id_especialidad`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_especialidad_medico` FOREIGN KEY (`especialidad_id`) REFERENCES `especialidades` (`id_especialidad`),
+  ADD CONSTRAINT `fk_usuario_medico` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id_usuario`);
+
+--
+-- Filtros para la tabla `perfil_usuario`
+--
+ALTER TABLE `perfil_usuario`
+  ADD CONSTRAINT `perfil_usuario_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE,
+  ADD CONSTRAINT `perfil_usuario_ibfk_2` FOREIGN KEY (`genero_id`) REFERENCES `generos` (`id_genero`);
+
+--
+-- Filtros para la tabla `turnos`
+--
+ALTER TABLE `turnos`
+  ADD CONSTRAINT `fk_especialidad_turno` FOREIGN KEY (`especialidad_id`) REFERENCES `especialidades` (`id_especialidad`),
+  ADD CONSTRAINT `fk_habitacion_turno` FOREIGN KEY (`habitacion_id`) REFERENCES `habitaciones` (`id_habitacion`),
+  ADD CONSTRAINT `fk_medico_turno` FOREIGN KEY (`medico_id`) REFERENCES `medicos` (`id_medico`),
+  ADD CONSTRAINT `fk_obra_social_turno` FOREIGN KEY (`obra_social_id`) REFERENCES `obras_sociales` (`id_OS`),
+  ADD CONSTRAINT `fk_usuario_turno` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id_usuario`);
+
+--
+-- Filtros para la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD CONSTRAINT `fk_rol_usuario` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`id_rol`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

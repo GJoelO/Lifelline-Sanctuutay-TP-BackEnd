@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/AdminStyle.css">
+    <link rel="stylesheet" href="/css/HomeStyle.css">
+    <link rel="stylesheet" href="/css/UserMenu.css">
+    <title>Panel de Administración - Hospital Lifeline</title>
+</head>
+<body>
+    <header id="header">
+        <a href="/"><div class="logo"><img src="/img/Logo PNG.png" alt="Logo de Hospital"></div></a>
+
+        <input type="checkbox" id="check">
+        <label for="check" class="mostrar-menu">&#8801</label>
+
+        <nav class="navbar">
+            <a href="/turnos-fron">Solicitud de Turno</a>
+            <a href="/acerca-de">Acerca de</a>
+            <a href="/servicios">Servicios</a>
+            <a href="/#Home">Contacto</a>
+            
+            <!-- Menú de usuario con foto de perfil (se mostrará solo si el usuario está logueado) -->
+            <div class="user-profile-container" id="userProfileContainer" style="display: none;">
+                <div class="user-profile-img">
+                    <img src="/placeholder.svg" alt="Foto de perfil" id="profileImage">
+                </div>
+                <div class="user-dropdown-menu" id="userDropdownMenu">
+                    <div class="user-info">
+                        <span class="user-name" id="userName">Usuario</span>
+                        <span class="user-status">Usuario conectado</span>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a href="/perfil" class="dropdown-item">
+                        <i class="fi fi-rr-user"></i>
+                        <span>Mi perfil</span>
+                    </a>
+                    <a href="/configuraciones" class="dropdown-item">
+                        <i class="fi fi-rr-settings"></i>
+                        <span>Configuraciones</span>
+                    </a>
+                    <a href="/admin" class="dropdown-item" id="adminLink" style="display: none;">
+                        <i class="fi fi-rr-shield"></i>
+                        <span>Administrador</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item logout" id="logoutButton">
+                        <i class="fi fi-rr-sign-out"></i>
+                        <span>Cerrar sesión</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Botón de login (se mostrará solo si el usuario NO está logueado) -->
+            <button class="btnLogin-popup" onclick="window.location.href='/login-register'">Login</button>
+            <label for="check" class="esconder-menu">&#215</label>
+        </nav>
+    </header>
+
+    <div id="admin-panel">
+        <h1>Panel de Administración - Hospital Lifeline</h1>
+        
+        <!-- Navegación por tabs -->
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab-button active" data-tab="dashboard">Dashboard</button>
+                <button class="tab-button" data-tab="usuarios">Usuarios</button>
+                <button class="tab-button" data-tab="especialidades">Especialidades</button>
+                <button class="tab-button" data-tab="habitaciones">Habitaciones</button>
+                <button class="tab-button" data-tab="historiales">Historial Médico</button>
+                <button class="tab-button" data-tab="medicos">Médicos</button>
+                <button class="tab-button" data-tab="obras-sociales">Obras Sociales</button>
+                <button class="tab-button" data-tab="roles">Roles</button>
+                <button class="tab-button" data-tab="turnos">Turnos</button>
+                <button class="tab-button" data-tab="hospital">Hospital</button>
+            </div>
+        </div>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <h2>Dashboard General</h2>
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <h3>Usuarios Registrados</h3>
+                    <span class="stat-number" id="total-usuarios">0</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Médicos Activos</h3>
+                    <span class="stat-number" id="total-medicos">0</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Turnos Pendientes</h3>
+                    <span class="stat-number" id="total-turnos-pendientes">0</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Habitaciones Disponibles</h3>
+                    <span class="stat-number" id="total-habitaciones-disponibles">0</span>
+                </div>
+            </div>
+            
+            <div class="turnos-container">
+                <h3>Estado de Turnos</h3>
+                <table class="status-table">
+                    <thead>
+                        <tr>
+                            <th>Por atender</th>
+                            <th>En atención</th>
+                            <th>Atendidos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="porAtender">0</td>
+                            <td id="enAtencion">0</td>
+                            <td id="atendidos">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Usuarios Tab -->
+        <div id="usuarios" class="tab-content">
+            <h2>Gestión de Usuarios</h2>
+            
+            <div class="crud-section">
+                <div class="form-section">
+                    <h3>Agregar/Editar Usuario</h3>
+                    <form id="usuarios-form" class="crud-form" enctype="multipart/form-data">
+                        <input type="hidden" id="usuarios-id" name="id_usuario">
+                        <div class="form-row">
+                            <input type="text" id="usuarios-nombre" name="nombre" placeholder="Nombre" required>
+                            <input type="text" id="usuarios-apellido" name="apellido" placeholder="Apellido" required>
+                        </div>
+                        <div class="form-row">
+                            <input type="text" id="usuarios-dni" name="dni" placeholder="DNI" required>
+                            <input type="email" id="usuarios-email" name="email" placeholder="Email" required>
+                        </div>
+                        <div class="form-row">
+                            <input type="tel" id="usuarios-telefono" name="telefono" placeholder="Teléfono" required>
+                            <input type="password" id="usuarios-contrasena" name="contrasena" placeholder="Contraseña" required>
+                        </div>
+                        <div class="form-row">
+                            <select id="usuarios-rol_id" name="rol_id" required>
+                                <option value="">Seleccionar Rol</option>
+                            </select>
+                            <div class="file-input-container">
+                                <label for="usuarios-foto-input" id="usuarios-foto-label" class="file-input-label">Seleccionar archivo</label>
+                                <input type="file" id="usuarios-foto-input" name="foto_perfil" class="file-input" accept="image/*">
+                                <div class="foto-preview-container">
+                                    <img id="foto-preview" class="foto-preview" alt="Vista previa">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="submit" class="btn-primary">Guardar</button>
+                            <button type="button" class="btn-secondary" onclick="clearForm('usuarios')">Limpiar</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="table-section">
+                    <h3>Lista de Usuarios</h3>
+                    <div class="table-container">
+                        <table id="usuarios-table" class="crud-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>DNI</th>
+                                    <th>Email</th>
+                                    <th>Teléfono</th>
+                                    <th>Rol</th>
+                                    <th>Foto</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usuarios-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Especialidades Tab -->
+        <div id="especialidades" class="tab-content">
+            <h2>Gestión de Especialidades</h2>
+            
+            <div class="crud-section">
+                <div class="form-section">
+                    <h3>Agregar/Editar Especialidad</h3>
+                    <form id="especialidades-form" class="crud-form" enctype="multipart/form-data">
+                        <input type="hidden" id="especialidades-id">
+                        <div class="form-row">
+                            <input type="text" id="especialidades-nombre" name="nombre" placeholder="Nombre de la Especialidad" required>
+                            <div class="file-input-container">
+                                <label for="especialidades-imagen-input" id="especialidades-imagen-label" class="file-input-label">Seleccionar imagen</label>
+                                <input type="file" id="especialidades-imagen-input" name="imagen" class="file-input" accept="image/*">
+                                <div class="foto-preview-container">
+                                    <img id="especialidades-imagen-preview" class="foto-preview" alt="Vista previa">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <textarea id="especialidades-descripcion" name="descripcion" placeholder="Descripción de la especialidad" rows="3"></textarea>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="submit" class="btn-primary">Guardar</button>
+                            <button type="button" class="btn-secondary" onclick="clearForm('especialidades')">Limpiar</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="table-section">
+                    <h3>Lista de Especialidades</h3>
+                    <div class="table-container">
+                        <table id="especialidades-table" class="crud-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Imagen</th>
+                                    <th>Descripción</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="especialidades-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Habitaciones Tab -->
+        <div id="habitaciones" class="tab-content">
+            <h2>Gestión de Habitaciones</h2>
+            
+            <div class="crud-section">
+                <div class="form-section">
+                    <h3>Agregar/Editar Habitación</h3>
+                    <form id="habitaciones-form" class="crud-form" enctype="multipart/form-data">
+                        <input type="hidden" id="habitaciones-id">
+                        <div class="form-row">
+                            <input type="text" id="habitaciones-numero" name="numero" placeholder="Número de Habitación" required>
+                            <input type="text" id="habitaciones-tipo" name="tipo" placeholder="Tipo de Habitación" required>
+                        </div>
+                        <div class="form-row">
+                            <input type="text" id="habitaciones-piso" name="piso" placeholder="Piso" required>
+                            <select id="habitaciones-estado" name="estado" required>
+                                <option value="">Seleccionar Estado</option>
+                                <option value="disponible">Disponible</option>
+                                <option value="ocupada">Ocupada</option>
+                                <option value="mantenimiento">Mantenimiento</option>
+                                <option value="limpieza">Limpieza</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <div class="file-input-container">
+                                <label for="habitaciones-imagen-input" id="habitaciones-imagen-label" class="file-input-label">Seleccionar imagen</label>
+                                <input type="file" id="habitaciones-imagen-input" name="imagen" class="file-input" accept="image/*">
+                                <div class="foto-preview-container">
+                                    <img id="habitaciones-imagen-preview" class="foto-preview" alt="Vista previa">
+                                </div>
+                            </div>
+                            <textarea id="habitaciones-descripcion" name="descripcion" placeholder="Descripción de la habitación" rows="3"></textarea>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="submit" class="btn-primary">Guardar</button>
+                            <button type="button" class="btn-secondary" onclick="clearForm('habitaciones')">Limpiar</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="table-section">
+                    <h3>Lista de Habitaciones</h3>
+                    <div class="table-container">
+                        <table id="habitaciones-table" class="crud-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Número</th>
+                                    <th>Tipo</th>
+                                    <th>Piso</th>
+                                    <th>Estado</th>
+                                    <th>Imagen</th>
+                                    <th>Descripción</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="habitaciones-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Historiales Tab -->
+        <div id="historiales" class="tab-content">
+            <h2>Gestión de Historiales Médicos</h2>
+            
+            <div class="crud-section">
+                <div class="form-section">
+                    <h3>Agregar/Editar Historial Médico</h3>
+                    <form id="historiales-form" class="crud-form">
+                        <input type="hidden" id="historiales-id">
+                        <div class="form-row">
+                            <select id="historiales-usuario_id" required>
+                                <option value="">Seleccionar Usuario</option>
+                            </select>
+                            <input type="date" id="historiales-fecha" required>
+                        </div>
+                        <div class="form-row">
+                            <select id="historiales-especialidad_id" required>
+                                <option value="">Seleccionar Especialidad</option>
+                            </select>
+                            <select id="historiales-medico_id" required>
+                                <option value="">Seleccionar Médico</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <select id="historiales-habitacion_id" required>
+                                <option value="">Seleccionar Habitación</option>
+                            </select>
+                            <input type="text" id="historiales-comprobante" placeholder="Comprobante">
+                        </div>
+                        <div class="form-row">
+                            <textarea id="historiales-diagnostico" placeholder="Diagnóstico" rows="3"></textarea>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="submit" class="btn-primary">Guardar</button>
+                            <button type="button" class="btn-secondary" onclick="clearForm('historiales')">Limpiar</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="table-section">
+                    <h3>Lista de Historiales Médicos</h3>
+                    <div class="table-container">
+                        <table id="historiales-table" class="crud-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Usuario</th>
+                                    <th>Fecha</th>
+                                    <th>Especialidad</th>
+                                    <th>Médico</th>
+                                    <th>Habitación</th>
+                                    <th>Diagnóstico</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historiales-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Médicos Tab -->
+        <div id="medicos" class="tab-content">
+            <h2>Gestión de Médicos</h2>
+            
+            <div class="crud-section">
+                <div class="form-section">
+                    <h3>Agregar/Editar Médico</h3>
+                    <form id="medicos-form" class="crud-form">
+                        <input type="hidden" id="medicos-id">
+                        <div class="form-row">
+                            <select id="medicos-usuario_id" required>
+                                <option value="">Seleccionar Usuario</option>
+                            </select>
+                            <select id="medicos-estado" required>
+                                <option value="">Estado</option>
+                                <option value="libre">Libre</option>
+                                <option value="ocupado">Ocupado</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <select id="medicos-especialidad_id" required>
+                                <option value="">Seleccionar Especialidad</option>
+                            </select>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="submit" class="btn-primary">Guardar</button>
+                            <button type="button" class="btn-secondary" onclick="clearForm('medicos')">Limpiar</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="table-section">
+                    <h3>Lista de Médicos</h3>
+                    <div class="table-container">
+                        <table id="medicos-table" class="crud-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Usuario</th>
+                                    <th>Estado</th>
+                                    <th>Especialidad</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="medicos-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Obras Sociales Tab -->
+        <div id="obras-sociales" class="tab-content">
+            <h2>Gestión de Obras Sociales</h2>
+            
+            <div class="crud-section">
+                <div class="form-section">
+                    <h3>Agregar/Editar Obra Social</h3>
+                    <form id="obras-sociales-form" class="crud-form">
+                        <input type="hidden" id="obras-sociales-id">
+                        <div class="form-row">
+                            <input type="text" id="obras-sociales-nombre" placeholder="Nombre de la Obra Social" required>
+                            <input type="text" id="obras-sociales-codigo" placeholder="Código">
+                        </div>
+                        <div class="form-buttons">
+                            <button type="submit" class="btn-primary">Guardar</button>
+                            <button type="button" class="btn-secondary" onclick="clearForm('obras-sociales')">Limpiar</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="table-section">
+                    <h3>Lista de Obras Sociales</h3>
+                    <div class="table-container">
+                        <table id="obras-sociales-table" class="crud-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Código</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="obras-sociales-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Roles Tab -->
+        <div id="roles" class="tab-content">
+            <h2>Gestión de Roles</h2>
+            
+            <div class="crud-section">
+                <div class="form-section">
+                    <h3>Agregar/Editar Rol</h3>
+                    <form id="roles-form" class="crud-form">
+                        <input type="hidden" id="roles-id">
+                        <div class="form-row">
+                            <input type="text" id="roles-nombre" placeholder="Nombre del Rol" required>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="submit" class="btn-primary">Guardar</button>
+                            <button type="button" class="btn-secondary" onclick="clearForm('roles')">Limpiar</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="table-section">
+                    <h3>Lista de Roles</h3>
+                    <div class="table-container">
+                        <table id="roles-table" class="crud-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="roles-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Turnos Tab -->
+        <div id="turnos" class="tab-content">
+            <h2>Gestión de Turnos</h2>
+            
+            <div class="crud-section">
+                <div class="form-section">
+                    <h3>Agregar/Editar Turno</h3>
+                    <form id="turnos-form" class="crud-form">
+                        <input type="hidden" id="turnos-id">
+                        <div class="form-row">
+                            <select id="turnos-usuario_id" required>
+                                <option value="">Seleccionar Usuario</option>
+                            </select>
+                            <select id="turnos-medico_id" required>
+                                <option value="">Seleccionar Médico</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <select id="turnos-especialidad_id" required>
+                                <option value="">Seleccionar Especialidad</option>
+                            </select>
+                            <select id="turnos-obra_social_id">
+                                <option value="">Seleccionar Obra Social</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <select id="turnos-habitacion_id">
+                                <option value="">Seleccionar Habitación</option>
+                            </select>
+                            <input type="date" id="turnos-fecha_turno" required>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="submit" class="btn-primary">Guardar</button>
+                            <button type="button" class="btn-secondary" onclick="clearForm('turnos')">Limpiar</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="table-section">
+                    <h3>Lista de Turnos</h3>
+                    <div class="table-container">
+                        <table id="turnos-table-new" class="crud-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Usuario</th>
+                                    <th>Médico</th>
+                                    <th>Especialidad</th>
+                                    <th>Obra Social</th>
+                                    <th>Habitación</th>
+                                    <th>Fecha</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="turnos-tbody-new"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hospital Tab - NUEVO -->
+        <div id="hospital" class="tab-content">
+            <h2>Gestión de Información del Hospital</h2>
+            
+            <div class="crud-section">
+                <div class="form-section">
+                    <h3>Agregar/Editar Información del Hospital</h3>
+                    <form id="hospital-form" class="crud-form" enctype="multipart/form-data">
+                        <input type="hidden" id="hospital-id">
+                        <div class="form-row">
+                            <div class="file-input-container">
+                                <label for="hospital-imagen-input" id="hospital-imagen-label" class="file-input-label">Seleccionar imagen del hospital</label>
+                                <input type="file" id="hospital-imagen-input" name="imagen" class="file-input" accept="image/*">
+                                <div class="foto-preview-container">
+                                    <img id="hospital-imagen-preview" class="foto-preview" alt="Vista previa">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <textarea id="hospital-descripcion" name="descripcion" placeholder="Descripción del hospital" rows="4" required></textarea>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="submit" class="btn-primary">Guardar</button>
+                            <button type="button" class="btn-secondary" onclick="clearForm('hospital')">Limpiar</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="table-section">
+                    <h3>Información del Hospital</h3>
+                    <div class="table-container">
+                        <table id="hospital-table" class="crud-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Imagen</th>
+                                    <th>Descripción</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="hospital-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/admin-script.js"></script>
+    <script src="/js/auth-system.js"></script>
+    <script src="/js/TurnoScript.js"></script>
+    <script src="/js/statusScript.js"></script>
+    <script src="/js/userMenu.js"></script>
+</body>
+</html>

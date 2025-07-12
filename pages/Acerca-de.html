@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/HomeStyle.css">
+    <link rel="stylesheet" href="/css/UserMenu.css">
+    <link rel="stylesheet" href="/css/acerca-de.css">
+    <link rel="icon" href="/img/Logo PNG.png">
+    <title>Acerca de - Lifelline Sanctuary</title>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-thin-rounded/css/uicons-thin-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+</head>
+<body>
+    <header id="header">
+        <a href="/"><div class="logo"><img src="/img/Logo PNG.png" alt="Logo de Hospital"></div></a>
+
+        <input type="checkbox" id="check">
+        <label for="check" class="mostrar-menu">&#8801</label>
+
+        <nav class="navbar">
+            <a href="/turnos-fron">Solicitud de Turno</a>
+            <a href="/acerca-de" class="active">Acerca de</a>
+            <a href="/servicios">Servicios</a>
+            <a href="/contacto">Contacto</a>
+            
+            <!-- Menú de usuario con foto de perfil (se mostrará solo si el usuario está logueado) -->
+            <div class="user-profile-container" id="userProfileContainer" style="display: none;">
+                <div class="user-profile-img">
+                    <img src="https://via.placeholder.com/40x40/65a2bc/ffffff?text=U" alt="Foto de perfil" id="profileImage">
+                </div>
+                <div class="user-dropdown-menu" id="userDropdownMenu">
+                    <div class="user-info">
+                        <span class="user-name" id="userName">Usuario</span>
+                        <span class="user-status">Usuario conectado</span>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a href="/perfil" class="dropdown-item">
+                        <i class="fi fi-rr-user"></i>
+                        <span>Mi perfil</span>
+                    </a>
+                    <a href="/configuraciones" class="dropdown-item">
+                        <i class="fi fi-rr-settings"></i>
+                        <span>Configuraciones</span>
+                    </a>
+                    <a href="/admin" class="dropdown-item" id="adminLink" style="display: none;">
+                        <i class="fi fi-rr-shield"></i>
+                        <span>Administrador</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item logout" id="logoutButton">
+                        <i class="fi fi-rr-sign-out"></i>
+                        <span>Cerrar sesión</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Botón de login (se mostrará solo si el usuario NO está logueado) -->
+            <button class="btnLogin-popup" onclick="window.location.href='/login-register'">Login</button>
+            <label for="check" class="esconder-menu">&#215</label>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <section class="hero">
+                <h2 class="hero-title">Acerca de Nosotros</h2>
+                <p class="hero-description">
+                    Conoce más sobre Hospital Lifeline, nuestra historia, misión y compromiso 
+                    con la excelencia en el cuidado de la salud.
+                </p>
+            </section>
+
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p>Cargando información del hospital...</p>
+            </div>
+
+            <div id="hospital-container" class="hospital-container">
+                <!-- La información del hospital se cargará dinámicamente aquí -->
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Hospital Lifeline. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="/js/acerca-de.js"></script>
+    <script src="/js/auth-system.js"></script>
+    <script src="/js/userMenu.js"></script>
+</body>
+</html>

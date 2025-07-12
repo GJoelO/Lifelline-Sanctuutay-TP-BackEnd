@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/HomeStyle.css">
+    <link rel="stylesheet" href="/css/UserMenu.css">
+    <link rel="icon" href="/img/Logo PNG.png">
+    <title>Lifelline Sanctuutay</title>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-thin-rounded/css/uicons-thin-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+</head>
+<body>
+    <header id="header">
+        <a href="/"><div class="logo"><img src="/img/Logo PNG.png" alt="Logo de Hospital"></div></a>
+
+        <input type="checkbox" id="check">
+        <label for="check" class="mostrar-menu">&#8801</label>
+
+        <nav class="navbar">
+            <a href="/turnos-fron">Solicitud de Turno</a>
+            <a href="/acerca-de">Acerca de</a>
+            <a href="/servicios">Servicios</a>
+            <a href="/contacto">Contacto</a>
+            
+            <!-- Menú de usuario con foto de perfil (se mostrará solo si el usuario está logueado) -->
+            <div class="user-profile-container" id="userProfileContainer" style="display: none;">
+                <div class="user-profile-img">
+                    <img src="/placeholder.svg" alt="Foto de perfil" id="profileImage">
+                </div>
+                <div class="user-dropdown-menu" id="userDropdownMenu">
+                    <div class="user-info">
+                        <span class="user-name" id="userName">Usuario</span>
+                        <span class="user-status">Usuario conectado</span>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a href="/perfil" class="dropdown-item">
+                        <i class="fi fi-rr-user"></i>
+                        <span>Mi perfil</span>
+                    </a>
+                    <a href="/configuraciones" class="dropdown-item">
+                        <i class="fi fi-rr-settings"></i>
+                        <span>Configuraciones</span>
+                    </a>
+                    <a href="/admin" class="dropdown-item" id="adminLink" style="display: none;">
+                        <i class="fi fi-rr-shield"></i>
+                        <span>Administrador</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item logout" id="logoutButton">
+                        <i class="fi fi-rr-sign-out"></i>
+                        <span>Cerrar sesión</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Botón de login (se mostrará solo si el usuario NO está logueado) -->
+            <button class="btnLogin-popup" onclick="window.location.href='/login-register'">Login</button>
+            <label for="check" class="esconder-menu">&#215</label>
+        </nav>
+    </header>
+
+
+<div class="main-home">
+
+    <div class="home">
+        <div class="home-left-content">
+            <span>Bienvenidos a el Hospital Lifelline</span>
+            <h2>Priorizar la salud<br> de nuestros pacientes es nuestra misión</h2>
+            <p class="lorem">En nuestro hospital, cada decisión y acción se centra en ofrecer atención de calidad y personalizada. Creemos que la salud y el bienestar de nuestros pacientes son lo más importante, por lo que trabajamos incansablemente para brindar un entorno seguro y compasivo. Nuestro compromiso se refleja en cada tratamiento, cada consulta y cada sonrisa que acompañamos en el camino hacia la recuperación. Juntos, construimos un futuro más saludable.</p>
+                
+        </div>
+
+        <div class="home-right-content">
+            <img src="/img/Foto 1.png" alt="">
+        </div>
+    </div>
+</div>
+<div class="turnos-container">
+    <div class="technology">
+        <div class="main-technology">
+            
+            <!-- TARJETA HOSPITAL - Ahora clickeable para ir a acerca-de -->
+            <div class="inner-technology clickable-card" onclick="window.location.href='/acerca-de'" style="cursor: pointer;">
+                <span></span>
+                <i class="fi fi-tr-hands-heart"></i>
+                <h2>Hospital</h2>
+                <p>Accede a todo sobre el Hospital y sus clinicas.</p>
+            </div>
+
+            <!-- TARJETA CONTACTO - Modificada para ir a contacto -->
+            <div class="inner-technology clickable-card" onclick="window.location.href='/contacto'" style="cursor: pointer;">
+                <span></span>
+                <i class="fi fi-rr-headset"></i>
+                <h2>Centro de Soporte</h2>
+                <p>¿Tienes algún problema? Reporta incidencias y recibe ayuda de nuestro equipo de soporte técnico.</p>
+            </div>
+
+            <div class="inner-technology clickable-card" onclick="window.location.href='/servicios'" style="cursor: pointer;">
+                <span></span>
+                <i class="fi fi-tr-user-md"></i>
+                <h2>Equipos y Especialidades</h2>
+                <p>Accede a nuestros Servicios, Programa de Diagnóstico y Tratamiento, Laboratorio, Comités donde podrás encontrar a nuestro personal más calificado.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-about">
+
+        <div class="about-heading">Sobre Nosotros</div>
+
+        <div class="inner-main-about">
+            <div class="about-inner-content-left">
+                <img src="/img/Foto 4.png" alt="">
+            </div>
+
+            <div class="about-inner-content">
+                <div class="about-right-content">
+                    <h2>Lifelline <br> Hospital de Wapusk.</h2>
+                    <p>Nos enorgullece anunciar la apertura de nuestro nuevo Hospital Central en Buenos Aires, extendiendo así nuestra atención de calidad a todas las provincias de Argentina. Desde nuestra sede principal en Wapusk, Canadá, hemos trabajado incansablemente para brindar lo mejor a nuestros pacientes, y ahora, con clínicas en todo el país, estamos más comprometidos que nunca con su bienestar.</p>
+                    <p class="aboutsec-content">
+                        Nuestro logo, un oso, simboliza la fortaleza y la protección. En Wapusk, hemos sido testigos de muchos casos de personas que han sufrido encuentros con estos majestuosos animales. Al igual que nuestro enfoque hacia el cuidado de la salud, el oso representa la vigilancia y el apoyo constante, recordándonos la importancia de proteger a quienes atendemos.
+                        <br><br>Con cada nueva clínica, reafirmamos nuestra misión de cuidar la salud y el bienestar de nuestros pacientes en Argentina. ¡Estamos aquí para ustedes!</p>
+                        <!-- BOTÓN MAS + - Ahora clickeable para ir a acerca-de -->
+                        <button class="aboutbtn" onclick="window.location.href='/acerca-de'" style="cursor: pointer;">Mas +</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main-footer">
+    <div class="footer-inner">
+        <div class="footer-content">
+            <h1>Link de Interés</h1>
+            <div class="link">
+                <a href="">Informes</a>
+            <a href="">Preguntas Frecuentes</a>
+            <a href="">Residencias</a>
+            <a href="">Docencia e Investigacion</a>
+            </div>
+        </div>
+
+        
+        <div class="footer-content">
+            <h1>Legales</h1>
+            <div class="link">
+                <a href="">Terminos y condiciones</a>
+                <a href="">Política de privacidad</a>
+                <a href="">Defensa de las y los Consumidores</a>
+            </div>
+        </div>
+        
+        <div class="footer-content">
+            <h1>Contactos</h1>
+            <div class="link">
+                <a href="">Formulario de Contacto</a>
+                <a href="">Reportes de Incidentes</a>
+                <a href="">Trabajar con Nosotros</a>
+                <a href="">Si queres estudiar</a>
+                <a href="">Si queres ser proveedor</a>
+            </div>
+        </div>
+        
+        <div class="footer-content">
+            <h1>Redes</h1>
+            <div class="link">
+                <a href="">Instagram</a>
+                <a href="">Facebook</a>
+                <a href="">Tik Tok</a>
+                <a href="">Youtube</a>
+                <a href="">Twitter</a>
+            </div>
+        </div>
+        <div class="footer-content">
+            <h1>Direcciones</h1>
+            <div class="link">
+                <a href="">Hospital Lifelline Wapusk sede Central</a>
+            <a href="">.......</a>
+            <a href="">.......</a>
+            <a href="">.......</a>
+            <a href="">.......</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/auth-system.js"></script>
+<script src="/js/TurnoScript.js"></script>
+<script src="/js/statusScript.js"></script>
+<script src="/js/userMenu.js"></script>
+</body>
+</html>

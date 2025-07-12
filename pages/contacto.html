@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/HomeStyle.css">
+    <link rel="stylesheet" href="/css/UserMenu.css">
+    <link rel="stylesheet" href="/css/ContactoStyle.css">
+    <link rel="icon" href="/img/Logo PNG.png">
+    <title>Contacto - Lifelline Sanctuary</title>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-thin-rounded/css/uicons-thin-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+</head>
+<body>
+    <header id="header">
+        <a href="/"><div class="logo"><img src="/img/Logo PNG.png" alt="Logo de Hospital"></div></a>
+
+        <input type="checkbox" id="check">
+        <label for="check" class="mostrar-menu">&#8801</label>
+
+        <nav class="navbar">
+            <a href="/turnos-fron">Solicitud de Turno</a>
+            <a href="/acerca-de">Acerca de</a>
+            <a href="/servicios">Servicios</a>
+            <a href="/contacto">Contacto</a>
+            
+            <!-- Menú de usuario con foto de perfil (se mostrará solo si el usuario está logueado) -->
+            <div class="user-profile-container" id="userProfileContainer" style="display: none;">
+                <div class="user-profile-img">
+                    <img src="/placeholder.svg" alt="Foto de perfil" id="profileImage">
+                </div>
+                <div class="user-dropdown-menu" id="userDropdownMenu">
+                    <div class="user-info">
+                        <span class="user-name" id="userName">Usuario</span>
+                        <span class="user-status">Usuario conectado</span>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a href="/perfil" class="dropdown-item">
+                        <i class="fi fi-rr-user"></i>
+                        <span>Mi perfil</span>
+                    </a>
+                    <a href="/configuraciones" class="dropdown-item">
+                        <i class="fi fi-rr-settings"></i>
+                        <span>Configuraciones</span>
+                    </a>
+                    <a href="/admin" class="dropdown-item" id="adminLink" style="display: none;">
+                        <i class="fi fi-rr-shield"></i>
+                        <span>Administrador</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item logout" id="logoutButton">
+                        <i class="fi fi-rr-sign-out"></i>
+                        <span>Cerrar sesión</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Botón de login (se mostrará solo si el usuario NO está logueado) -->
+            <button class="btnLogin-popup" onclick="window.location.href='/login-register'">Login</button>
+            <label for="check" class="esconder-menu">&#215</label>
+        </nav>
+    </header>
+
+    <main class="contact-main">
+        <div class="contact-container">
+            <div class="contact-header">
+                <h1>Centro de Soporte</h1>
+                <p>¿Tienes algún problema? Estamos aquí para ayudarte. Completa el formulario y nos pondremos en contacto contigo.</p>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-form-section">
+                    <div class="form-container">
+                        <h2>Reportar un Problema</h2>
+                        <form id="contactForm" class="contact-form">
+                            <div class="form-group">
+                                <label for="motivo">Motivo del Problema *</label>
+                                <select id="motivo" name="motivo" required>
+                                    <option value="">Selecciona el motivo</option>
+                                    <option value="Problema técnico">Problema técnico</option>
+                                    <option value="Error en el sistema">Error en el sistema</option>
+                                    <option value="Problema con turnos">Problema con turnos</option>
+                                    <option value="Problema de acceso">Problema de acceso</option>
+                                    <option value="Consulta médica">Consulta médica</option>
+                                    <option value="Otro">Otro</option>
+                                </select>
+                                <span class="error-message" id="motivoError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="descripcion">Descripción del Problema *</label>
+                                <textarea id="descripcion" name="descripcion" rows="6" placeholder="Describe detalladamente el problema que estás experimentando..." required></textarea>
+                                <span class="error-message" id="descripcionError"></span>
+                                <div class="char-counter">
+                                    <span id="charCount">0</span>/500 caracteres
+                                </div>
+                            </div>
+
+                            <div class="user-info-display">
+                                <h3>Tus datos de contacto:</h3>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <i class="fi fi-rr-user"></i>
+                                        <span id="displayNombre">Cargando...</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="fi fi-rr-envelope"></i>
+                                        <span id="displayEmail">Cargando...</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="fi fi-rr-phone-call"></i>
+                                        <span id="displayTelefono">Cargando...</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="submit-btn" id="submitBtn">
+                                <i class="fi fi-rr-paper-plane"></i>
+                                Enviar Reporte
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="contact-info-section">
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fi fi-rr-headset"></i>
+                        </div>
+                        <h3>Soporte 24/7</h3>
+                        <p>Nuestro equipo de soporte está disponible las 24 horas para ayudarte con cualquier problema.</p>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fi fi-rr-clock"></i>
+                        </div>
+                        <h3>Respuesta Rápida</h3>
+                        <p>Nos comprometemos a responder tu consulta en un plazo máximo de 24 horas.</p>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fi fi-rr-shield-check"></i>
+                        </div>
+                        <h3>Información Segura</h3>
+                        <p>Todos tus datos están protegidos y se manejan con total confidencialidad.</p>
+                    </div>
+
+                    <div class="emergency-contact">
+                        <h3>¿Emergencia Médica?</h3>
+                        <p>Si tienes una emergencia médica, no uses este formulario.</p>
+                        <a href="tel:911" class="emergency-btn">
+                            <i class="fi fi-rr-phone-call"></i>
+                            Llamar al 911
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Notificación -->
+    <div id="notification" class="notification"></div>
+
+    <!-- Loading overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Enviando reporte...</p>
+        </div>
+    </div>
+
+    <script src="/js/auth-system.js"></script>
+    <script src="/js/userMenu.js"></script>
+    <script src="/js/contacto.js"></script>
+</body>
+</html>

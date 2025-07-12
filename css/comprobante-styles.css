@@ -1,0 +1,588 @@
+    /* Estilos para el sistema de comprobante de turnos */
+
+    /* Mensaje de confirmación */
+    .confirmacion-mensaje {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(39, 174, 96, 0.3);
+    animation: slideInDown 0.6s ease-out;
+    }
+
+    .confirmacion-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    }
+
+    .success-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+    }
+
+    .confirmacion-content h2 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    }
+
+    .confirmacion-content p {
+    margin: 0;
+    font-size: 16px;
+    opacity: 0.9;
+    }
+
+    /* Contenedor del comprobante */
+    .comprobante-wrapper {
+    animation: fadeInUp 0.8s ease-out;
+    }
+
+    .comprobante-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 30px;
+    border: 1px solid #e0e0e0;
+    }
+
+    /* Header del comprobante */
+    .comprobante-header {
+    background: linear-gradient(135deg, #65a2bc, #4a90a4);
+    color: white;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    }
+
+    .hospital-logo {
+    display: flex;
+    align-items: center;
+    }
+
+    .hospital-logo img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: white;
+    padding: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .hospital-info {
+    flex: 1;
+    text-align: center;
+    }
+
+    .hospital-info h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .hospital-info p {
+    margin: 8px 0 0;
+    font-size: 16px;
+    opacity: 0.9;
+    }
+
+    .turno-numero {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    }
+
+    /* Secciones del comprobante */
+    .comprobante-section {
+    padding: 25px;
+    border-bottom: 1px solid #f0f0f0;
+    }
+
+    .comprobante-section:last-of-type {
+    border-bottom: none;
+    }
+
+    .section-title {
+    color: #65a2bc;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    }
+
+    .section-title i {
+    font-size: 22px;
+    }
+
+    /* Grid de datos */
+    .datos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    }
+
+    .dato-item {
+    background: #f8f9fa;
+    padding: 18px;
+    border-radius: 8px;
+    border-left: 4px solid #65a2bc;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .dato-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Colores específicos para diferentes tipos de datos */
+    .dato-item.especialidad {
+    border-left-color: #3498db;
+    background: #ebf3fd;
+    }
+
+    .dato-item.medico {
+    border-left-color: #e74c3c;
+    background: #fdf2f2;
+    }
+
+    .dato-item.fecha {
+    border-left-color: #27ae60;
+    background: #eafaf1;
+    }
+
+    .dato-item.obra-social {
+    border-left-color: #9b59b6;
+    background: #f8f4fd;
+    }
+
+    .dato-label {
+    font-weight: 600;
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    }
+
+    .dato-valor {
+    color: #333;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.4;
+    }
+
+    /* Información importante */
+    .info-importante {
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    border: 1px solid #ffc107;
+    padding: 25px;
+    margin: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2);
+    }
+
+    .info-importante h4 {
+    color: #856404;
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    font-weight: 700;
+    }
+
+    .info-importante ul {
+    color: #856404;
+    margin: 0;
+    padding-left: 20px;
+    line-height: 1.8;
+    }
+
+    .info-importante li {
+    margin-bottom: 8px;
+    font-weight: 500;
+    }
+
+    /* Footer del comprobante */
+    .comprobante-footer {
+    background: #f8f9fa;
+    padding: 25px;
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+    border-top: 1px solid #e9ecef;
+    }
+
+    .comprobante-footer p {
+    margin: 5px 0;
+    }
+
+    .comprobante-footer strong {
+    color: #65a2bc;
+    }
+
+    /* Botones de acción */
+    .comprobante-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 25px;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    flex-wrap: wrap;
+    }
+
+    .btn-action {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    min-width: 160px;
+    justify-content: center;
+    }
+
+    .btn-primary {
+    background: linear-gradient(135deg, #65a2bc, #4a90a4);
+    color: white;
+    box-shadow: 0 4px 12px rgba(101, 162, 188, 0.3);
+    }
+
+    .btn-primary:hover {
+    background: linear-gradient(135deg, #4a90a4, #3a7a8a);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(101, 162, 188, 0.4);
+    }
+
+    .btn-secondary {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    color: white;
+    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+    }
+
+    .btn-secondary:hover {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+    }
+
+    .btn-outline {
+    background: transparent;
+    color: #65a2bc;
+    border: 2px solid #65a2bc;
+    }
+
+    .btn-outline:hover {
+    background: #65a2bc;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(101, 162, 188, 0.3);
+    }
+
+    /* Iconos simples con CSS */
+    .icon-print::before {
+    content: "🖨️";
+    }
+    .icon-download::before {
+    content: "📥";
+    }
+    .icon-plus::before {
+    content: "➕";
+    }
+    .icon-home::before {
+    content: "🏠";
+    }
+    .icon-user::before {
+    content: "👤";
+    }
+    .icon-calendar::before {
+    content: "📅";
+    }
+    .icon-location::before {
+    content: "📍";
+    }
+
+    /* Animaciones */
+    @keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    }
+
+    @keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    }
+
+    @keyframes pulse {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    }
+
+    /* Estilos para impresión */
+    @media print {
+    body {
+        margin: 0;
+        padding: 0;
+        background: white !important;
+        color: black !important;
+        font-size: 12pt;
+        line-height: 1.4;
+    }
+
+    .no-print,
+    .comprobante-actions,
+    .confirmacion-mensaje {
+        display: none !important;
+    }
+
+    .comprobante-container {
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        page-break-inside: avoid;
+    }
+
+    .comprobante-header {
+        background: white !important;
+        color: black !important;
+        border-bottom: 2px solid #65a2bc !important;
+        page-break-inside: avoid;
+    }
+
+    .hospital-logo img {
+        border: 2px solid #65a2bc !important;
+    }
+
+    .turno-numero {
+        background: #f0f0f0 !important;
+        color: black !important;
+        border: 1px solid #65a2bc !important;
+    }
+
+    .section-title {
+        color: #65a2bc !important;
+        page-break-after: avoid;
+    }
+
+    .dato-item {
+        page-break-inside: avoid;
+        background: #f8f9fa !important;
+        border-left: 4px solid #65a2bc !important;
+    }
+
+    .info-importante {
+        background: #fff3cd !important;
+        border: 1px solid #ffc107 !important;
+        page-break-inside: avoid;
+    }
+
+    .comprobante-footer {
+        background: #f8f9fa !important;
+        border-top: 1px solid #ddd !important;
+    }
+
+    .datos-grid {
+        grid-template-columns: 1fr 1fr !important;
+    }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+    .comprobante-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .hospital-info {
+        order: -1;
+    }
+
+    .hospital-info h1 {
+        font-size: 24px;
+    }
+
+    .datos-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .comprobante-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-action {
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .section-title {
+        font-size: 18px;
+    }
+
+    .dato-valor {
+        font-size: 16px;
+    }
+    }
+
+    @media (max-width: 480px) {
+    .comprobante-section {
+        padding: 20px 15px;
+    }
+
+    .info-importante {
+        margin: 15px;
+        padding: 20px;
+    }
+
+    .hospital-logo img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .hospital-info h1 {
+        font-size: 22px;
+    }
+
+    .confirmacion-content h2 {
+        font-size: 24px;
+    }
+
+    .success-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 35px;
+    }
+    }
+
+    /* Estado de carga */
+    .loading .btn-action {
+    opacity: 0.6;
+    pointer-events: none;
+    }
+
+    .loading .btn-action::after {
+    content: "...";
+    animation: dots 1.5s infinite;
+    }
+
+    @keyframes dots {
+    0%,
+    20% {
+        content: "...";
+    }
+    40% {
+        content: "..";
+    }
+    60% {
+        content: ".";
+    }
+    80%,
+    100% {
+        content: "";
+    }
+    }
+
+    /* Estilos para campos con errores */
+    .campo-error {
+    border: 2px solid #e74c3c !important;
+    background-color: #fdf2f2 !important;
+    box-shadow: 0 0 5px rgba(231, 76, 60, 0.3) !important;
+    }
+
+    .campo-error:focus {
+    border-color: #c0392b !important;
+    box-shadow: 0 0 8px rgba(231, 76, 60, 0.5) !important;
+    }
+
+    .radio-group.campo-error {
+    border: 2px solid #e74c3c;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #fdf2f2;
+    }
+
+    /* Animación para campos con error */
+    @keyframes shake {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    75% {
+        transform: translateX(5px);
+    }
+    }
+
+    .campo-error {
+    animation: shake 0.5s ease-in-out;
+    }
+
+    /* Mensaje de error mejorado */
+    .error-message {
+    background: #e74c3c;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 10px 0;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+    }
+
+    /* Estilos para el estado de carga */
+    .loading .btn-submit {
+    background: #95a5a6 !important;
+    cursor: not-allowed !important;
+    opacity: 0.7;
+    }
+
+    .loading .btn-submit::after {
+    content: " ⏳";
+    }

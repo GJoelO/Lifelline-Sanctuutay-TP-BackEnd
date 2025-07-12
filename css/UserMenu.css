@@ -1,0 +1,279 @@
+    /* Estilos para el menú de usuario */
+    .user-profile-container {
+    position: relative;
+    display: inline-block;
+    margin-left: 20px;
+    }
+
+    .user-profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid #fff;
+    transition: all 0.3s ease;
+    }
+
+    .user-profile-img:hover {
+    border-color: #65a2bc;
+    transform: scale(1.05);
+    }
+
+    .user-profile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    }
+
+    .user-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: -80px; /* Cambiar de -100px a -80px para mejor centrado */
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    min-width: 240px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    border: 1px solid #e0e0e0;
+    }
+
+    .user-dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    }
+
+    .user-info {
+    padding: 18px;
+    border-bottom: 1px solid #f0f0f0;
+    background: linear-gradient(135deg, #65a2bc, #4a90a4);
+    color: white;
+    border-radius: 8px 8px 0 0;
+    text-align: center;
+    }
+
+    .user-name {
+    display: block;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 4px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .user-status {
+    font-size: 13px;
+    opacity: 0.9;
+    font-weight: 400;
+    }
+
+    .dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 14px 18px;
+    color: #2c3e50;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 15px;
+    font-weight: 500;
+    border-bottom: 1px solid #f8f9fa;
+    min-height: 48px;
+    }
+
+    .dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: #65a2bc;
+    }
+
+    .dropdown-item:last-child {
+    border-bottom: none;
+    }
+
+    .dropdown-item i {
+    margin-right: 12px;
+    font-size: 18px;
+    width: 22px;
+    text-align: center;
+    color: #65a2bc;
+    flex-shrink: 0;
+    }
+
+    .dropdown-item span {
+    color: #2c3e50;
+    font-size: 15px;
+    font-weight: 500;
+    flex: 1;
+    white-space: nowrap;
+    }
+
+    .dropdown-item:hover i {
+    color: #4a90a4;
+    }
+
+    .dropdown-item:hover span {
+    color: #65a2bc;
+    }
+
+    .dropdown-item.logout {
+    color: #e74c3c;
+    /* Eliminar border-top especial */
+    }
+
+    .dropdown-item.logout i {
+    color: #e74c3c;
+    }
+
+    .dropdown-item.logout span {
+    color: #e74c3c;
+    }
+
+    .dropdown-item.logout:hover {
+    background-color: #f8f9fa; /* Mismo fondo que las otras opciones */
+    color: #c0392b;
+    }
+
+    .dropdown-item.logout:hover i {
+    color: #c0392b;
+    }
+
+    .dropdown-item.logout:hover span {
+    color: #c0392b;
+    }
+
+    .dropdown-divider {
+    height: 1px;
+    background-color: #f0f0f0;
+    margin: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+    .user-profile-container {
+        margin-left: 10px;
+    }
+
+    .user-dropdown-menu {
+        right: -40px; /* Cambiar de -50px a -40px */
+        min-width: 200px;
+    }
+
+    .dropdown-item {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .user-info {
+        padding: 12px;
+    }
+    }
+
+    /* Animación para el icono de administrador */
+    .dropdown-item[href="/admin"] {
+    background: linear-gradient(90deg, #fff3cd, #ffffff);
+    border-left: 4px solid #ffc107;
+    }
+
+    .dropdown-item[href="/admin"] i {
+    color: #f39c12;
+    }
+
+    .dropdown-item[href="/admin"] span {
+    color: #d68910;
+    font-weight: 600;
+    }
+
+    .dropdown-item[href="/admin"]:hover {
+    background: linear-gradient(90deg, #fff3cd, #fef9e7);
+    }
+
+    .dropdown-item[href="/admin"]:hover i {
+    color: #d68910;
+    }
+
+    .dropdown-item[href="/admin"]:hover span {
+    color: #b7950b;
+    }
+
+    /* Estilos adicionales para el botón de login cuando está visible */
+    .btnLogin-popup {
+    background: linear-gradient(135deg, #65a2bc, #4a90a4);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    }
+
+    .btnLogin-popup:hover {
+    background: linear-gradient(135deg, #4a90a4, #3a7a8a);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(101, 162, 188, 0.3);
+    }
+
+    .user-dropdown-menu::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    right: 100px; /* Cambiar de 120px a 100px */
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid white;
+    z-index: 1001;
+    }
+
+    .user-dropdown-menu::after {
+    content: "";
+    position: absolute;
+    top: -9px;
+    right: 100px; /* Cambiar de 120px a 100px */
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #e0e0e0;
+    z-index: 1000;
+    }
+
+    /* Eliminar animaciones del navbar en el dropdown */
+    .user-dropdown-menu .dropdown-item::after {
+    display: none !important;
+    }
+
+    .user-dropdown-menu .dropdown-item::before {
+    display: none !important;
+    }
+
+    .user-dropdown-menu a::after {
+    display: none !important;
+    }
+
+    .user-dropdown-menu a::before {
+    display: none !important;
+    }
+
+    /* Asegurar que no haya transiciones de líneas en el dropdown */
+    .user-dropdown-menu .dropdown-item {
+    position: relative;
+    }
+
+    .user-dropdown-menu .dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: #65a2bc;
+    /* Sin animaciones adicionales */
+    }
+
+    .user-dropdown-menu .dropdown-item.logout:hover {
+    background-color: #f8f9fa;
+    color: #c0392b;
+    /* Sin animaciones adicionales */
+    }
