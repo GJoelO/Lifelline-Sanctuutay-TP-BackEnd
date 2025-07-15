@@ -115,5 +115,5 @@
     })
     })
 
-    const PORT = process.env.PORT || 3306
+    const PORT = process.env.PORT || 3088
     app.listen(PORT, () => console.log(`http://localhost:${PORT}`))
