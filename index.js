@@ -115,6 +115,5 @@
     })
     })
 
-    mysql://root:NRidEGmvzsDOxKmBzPiogDWoWuGTLwsp@yamabiko.proxy.rlwy.net:14027/railway
     const PORT = process.env.PORT || 3088
     app.listen(PORT, () => console.log(`http://localhost:${PORT}`))
