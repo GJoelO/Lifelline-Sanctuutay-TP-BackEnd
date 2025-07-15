@@ -365,6 +365,7 @@
     padding: 4rem 7%;
     background-color: var(--colortext);
     margin-top: 6rem;
+    text-align: center;
     }
     .footer-inner {
     display: flex;
@@ -482,6 +483,7 @@
     .container {
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 20px;
     }
 
     #servicios h2 {
@@ -595,6 +597,13 @@
     font-size: 1.5rem;
     }
 
+    .main-footer .container p {
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 0;
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
     .mostrar-menu,
@@ -652,4 +661,4 @@
     .home-buttons {
         justify-content: center;
     }
-    }
+}

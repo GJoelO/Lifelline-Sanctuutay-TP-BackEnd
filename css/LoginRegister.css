@@ -54,6 +54,7 @@
     overflow: hidden;
     transform: scale(0);
     transition: transform 0.5s ease, height 0.3s ease;
+    margin-top: 80px; /* Agregar margen superior para que no lo tape el header */
     }
 
     .wrapper.active-popup {
@@ -61,7 +62,7 @@
     }
 
     .wrapper.active {
-    min-height: 650px;
+    min-height: 750px;
     }
 
     .wrapper .form-box {
@@ -411,10 +412,13 @@
 
     /* Responsive Design */
     @media (max-width: 768px) {
+    body {
+        align-items: flex-start !important;
+        padding-top: 100px !important;
+    }
+
     header {
         padding: 15px 20px;
-        flex-direction: column;
-        gap: 15px;
     }
 
     .navigation {
@@ -437,7 +441,13 @@
     .wrapper {
         width: 90%;
         max-width: 400px;
-        margin: 20px;
+        margin: 20px auto;
+        margin-top: 0; /* Remover margen superior en móvil */
+        align-items: flex-start !important;
+    }
+
+    .wrapper.active {
+        min-height: 1000px !important;
     }
 
     .input-row {
@@ -467,22 +477,34 @@
     }
 
     @media (max-width: 480px) {
+    body {
+        align-items: flex-start !important;
+        padding-top: 90px !important;
+    }
+
     .wrapper {
         width: 95%;
         padding: 20px;
+        margin: 10px auto 20px auto;
+        margin-top: 0; /* Remover margen superior en móvil pequeño */
+        align-items: flex-start !important;
+    }
+
+    .wrapper.active {
+        min-height: 1100px !important;
     }
 
     .wrapper .form-box {
-        padding: 20px;
+        padding: 15px;
     }
 
     .form-box h2 {
         font-size: 1.5em;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
 
     .input-box {
-        margin: 20px 0;
+        margin: 15px 0;
     }
 
     .file-label {
