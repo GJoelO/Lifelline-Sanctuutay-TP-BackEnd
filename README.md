@@ -1,2 +1,2 @@
 Host:
-https://lifelline-sanctuutay-hospital-clinica.netlify.app/home
+https://lifelline-sanctuutay.netlify.app/
