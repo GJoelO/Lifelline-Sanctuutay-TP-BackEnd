@@ -74,7 +74,7 @@
 
     // Ruta principal del proyecto
     app.get("/", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "pages", "Home.html"))
+    res.sendFile(path.resolve(__dirname, "pages", "index.html"))
     })
 
     // Ruta de contacto (protegida - se verifica en el frontend)
