@@ -1,4 +1,4 @@
-    class AcercaDePage {
+class AcercaDePage {
     constructor() {
         this.loadingElement = document.getElementById("loading")
         this.hospitalContainer = document.getElementById("hospital-container")
